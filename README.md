@@ -1,70 +1,126 @@
-# Getting Started with Create React App
+# Professional Full Stack Developer Portfolio
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A modern, responsive, and visually appealing portfolio website for a Full Stack Developer with dark/light theme support and smooth animations.
 
-## Available Scripts
+## Features
 
-In the project directory, you can run:
+- **Responsive Design** - Looks great on all devices (desktop, tablet, mobile)
+- **Dark/Light Mode** - Toggle between themes with a smooth transition
+- **Smooth Animations** - Section animations when scrolling
+- **Dynamic Navbar** - Responsive navigation that highlights the current section
+- **Modern UI** - Clean, minimalist, and professional design
+- **Contact Form** - Integrated with EmailJS for direct messaging
 
-### `npm start`
+## Sections
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+1. **Home** - Introduction with social links and profile photo
+2. **Experience** - Work history timeline
+3. **Education** - Academic background
+4. **Projects** - Showcase of recent work
+5. **Skills** - Technical capabilities with visual indicators
+6. **Contact** - Contact form and information
+7. **Footer** - Additional links and information
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Getting Started
 
-### `npm test`
+### Prerequisites
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- Node.js (v14 or later)
+- npm or yarn
 
-### `npm run build`
+### Installation
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+1. Clone the repository
+```bash
+git clone [your-repo-url]
+cd [your-repo-name]
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+2. Install dependencies
+```bash
+npm install
+# or
+yarn install
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+3. Start the development server
+```bash
+npm start
+# or
+yarn start
+```
 
-### `npm run eject`
+4. Open [http://localhost:3000](http://localhost:3000) to view it in your browser
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### Personalization
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+#### Basic Info
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+1. Replace dummy content in each component with your personal information:
+   - Update name, bio, and profile picture in `Home.jsx`
+   - Add your work experience in `Experience.jsx`
+   - Update education details in `Education.jsx`
+   - Add your projects in `Projects.jsx`
+   - List your skills in `Skills.jsx`
+   - Update contact information in `Contact.jsx`
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+#### Profile Picture
 
-## Learn More
+1. Add your profile picture to the `public` folder
+2. Update the image path in the `Home.jsx` component
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+#### Email Configuration
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+The contact form is set up with EmailJS. To make it work with your account:
 
-### Code Splitting
+1. Create an account at [EmailJS](https://www.emailjs.com/)
+2. Create a service and template
+3. Update the service ID, template ID, and public key in the `Contact.jsx` component
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## Customization
 
-### Analyzing the Bundle Size
+### Colors
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+You can change the color scheme by modifying the CSS variables in `App.css`:
 
-### Making a Progressive Web App
+```css
+:root {
+  /* Light Theme Colors */
+  --primary-light: #3498db;
+  --secondary-light: #2ecc71;
+  /* ... other color variables */
+  
+  /* Dark Theme Colors */
+  --primary-dark: #3498db;
+  --secondary-dark: #2ecc71;
+  /* ... other color variables */
+}
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+### Fonts
 
-### Advanced Configuration
+The default font is 'Inter'. To change it, update the `--font-family` variable in `App.css`.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+## Building for Production
 
-### Deployment
+```bash
+npm run build
+# or
+yarn build
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+This creates an optimized production build in the `build` folder that you can deploy to any static hosting service.
 
-### `npm run build` fails to minify
+## Technologies Used
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- React.js
+- React Router
+- Framer Motion (animations)
+- React Scroll
+- React Icons
+- EmailJS
+- CSS Variables
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
