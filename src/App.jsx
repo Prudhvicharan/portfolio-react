@@ -8,7 +8,7 @@ import Projects from "./components/Projects.jsx";
 import Skills from "./components/Skills.jsx";
 import Contact from "./components/Contact.jsx";
 import Footer from "./components/Footer.jsx";
-import ThemeContext from "./context/ThemeContext";
+import ThemeContext from "./context/ThemeContext.js";
 import "./App.css";
 
 function App() {
