@@ -58,7 +58,7 @@ const skillsData = [
 const Skills = () => {
   const { darkTheme } = useContext(ThemeContext);
   const [ref, inView] = useInView({
-    triggerOnce: false,
+    triggerOnce: true,
     threshold: 0.1,
   });
 

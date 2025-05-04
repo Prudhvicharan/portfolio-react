@@ -66,7 +66,7 @@ const Projects = () => {
   const { darkTheme } = useContext(ThemeContext);
   const [expandedProject, setExpandedProject] = useState(null);
   const [ref, inView] = useInView({
-    triggerOnce: false,
+    triggerOnce: true,
     threshold: 0.1,
   });
 
