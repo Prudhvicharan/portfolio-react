@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import ThemeContext from "../context/ThemeContext";
 import { FaCode, FaServer, FaDatabase, FaTools } from "react-icons/fa";
-
+import "./Skills.css";
 // Dummy skills data
 const skillsData = [
   {

@@ -4,7 +4,7 @@ import { Link } from "react-scroll";
 import ThemeContext from "../context/ThemeContext";
 // Import an alternate set of icons from react-icons instead of heroicons
 import { FaSun, FaMoon, FaBars, FaTimes } from "react-icons/fa";
-
+import "./Navbar.css";
 const Navbar = () => {
   const { darkTheme, toggleTheme } = useContext(ThemeContext);
   const [scrolled, setScrolled] = useState(false);

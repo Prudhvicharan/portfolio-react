@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import ThemeContext from "../context/ThemeContext";
 import { BsBriefcase } from "react-icons/bs";
-
+import "./Experience.css";
 // Dummy data for work experience
 const workExperiences = [
   {

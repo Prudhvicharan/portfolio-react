@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { Link } from "react-scroll";
 import ThemeContext from "../context/ThemeContext";
 import { FaLinkedin, FaGithub, FaEnvelope, FaArrowUp } from "react-icons/fa";
-
+import "./Footer.css";
 const Footer = () => {
   const { darkTheme } = useContext(ThemeContext);
 

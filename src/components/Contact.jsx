@@ -4,7 +4,7 @@ import { useInView } from "react-intersection-observer";
 import ThemeContext from "../context/ThemeContext";
 import { FaEnvelope, FaMapMarkerAlt, FaPhone } from "react-icons/fa";
 import emailjs from "@emailjs/browser";
-
+import "./Contact.css";
 const Contact = () => {
   const { darkTheme } = useContext(ThemeContext);
   const [ref, inView] = useInView({

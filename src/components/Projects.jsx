@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import ThemeContext from "../context/ThemeContext";
 import { FaCode, FaGithub, FaExternalLinkAlt } from "react-icons/fa";
-
+import "./Projects.css";
 // Dummy project data
 const projectsData = [
   {

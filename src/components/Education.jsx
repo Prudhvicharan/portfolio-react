@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import ThemeContext from "../context/ThemeContext";
 import { FaGraduationCap } from "react-icons/fa";
-
+import "./Education.css";
 // Dummy education data
 const educationData = [
   {

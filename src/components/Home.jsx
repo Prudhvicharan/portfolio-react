@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { motion } from "framer-motion";
 import ThemeContext from "../context/ThemeContext";
 import { FaLinkedin, FaGithub, FaEnvelope } from "react-icons/fa";
-
+import "./Home.css";
 const Home = () => {
   const { darkTheme } = useContext(ThemeContext);
 
