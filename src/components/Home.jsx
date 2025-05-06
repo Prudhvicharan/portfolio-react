@@ -229,7 +229,7 @@ const Home = () => {
           transition={{ duration: 0.8 }}
         >
           <h1 ref={titleRef}>
-            Hello, I'm <span className="highlight">John Doe</span>
+            Hello, I am <span className="highlight">John Doe</span>
           </h1>
 
           <h2 className="typewriter" ref={subtitleRef}>
