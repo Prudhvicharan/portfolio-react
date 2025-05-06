@@ -7,6 +7,7 @@ import "./Home.css";
 // Import GSAP for more advanced animations
 import { gsap } from "gsap";
 import { TextPlugin } from "gsap/TextPlugin";
+import profilePic from "../assets/profile-pic.png";
 
 // Register TextPlugin
 gsap.registerPlugin(TextPlugin);
@@ -295,7 +296,7 @@ const Home = () => {
           <div className="profile-circle" ref={circleRef}>
             <div className="hexagon">
               <div className="hexagon-inner">
-                <img src="/profile-placeholder.jpg" alt="John Doe" />
+                <img src={profilePic} alt="John Doe" />
               </div>
             </div>
           </div>

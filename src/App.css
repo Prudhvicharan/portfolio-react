@@ -1,40 +1,62 @@
-/* ===== Base Styles ===== */
+/* ===== Base Styles - Sage Harmony Theme ===== */
 :root {
-  /* Light Theme Colors */
-  --primary-light: #3498db;
-  --secondary-light: #2ecc71;
-  --background-light: #ffffff;
-  --surface-light: #f8f9fa;
-  --text-primary-light: #2c3e50;
-  --text-secondary-light: #7f8c8d;
-  --border-light: #e0e0e0;
-  --card-shadow-light: 0 4px 6px rgba(0, 0, 0, 0.1);
+  /* Light Theme Colors - Based on your palette */
+  --sage-deep: #6B9080;     /* Deep sage/forest green */
+  --sage-medium: #A4C3B2;   /* Medium sage */
+  --sage-light: #CCE3DE;    /* Light sage/mint */
+  --sage-pale: #EAF4F4;     /* Pale sage/almost white */
+  --cream: #F6FFF8;         /* Cream/off-white */
+  --white: #FFFFFF;         /* Pure white */
+  
+  /* Complementary Accent Colors */
+  --terra-cotta: #E07A5F;   /* Earthy terra cotta */
+  --deep-blue: #3D5A80;     /* Deep ocean blue */
+  --golden-ochre: #D9C589;  /* Golden ochre/sand */
+  
+  /* Theme Colors Mapped */
+  --primary-light: var(--deep-blue);
+  --secondary-light: var(--sage-deep);
+  --tertiary-light: var(--terra-cotta);
+  --background-light: var(--white);      /* Changed to pure white */
+  --surface-light: var(--cream);         /* Surface now uses cream */
+  --card-surface-light: var(--sage-pale); /* Cards use pale sage */
+  --text-primary-light: #2F3E46;         /* Dark blue-green */
+  --text-secondary-light: #52796F;       /* Muted sage */
+  --border-light: var(--sage-light);
+  --card-shadow-light: 0 8px 20px rgba(107, 144, 128, 0.08), 0 3px 10px rgba(107, 144, 128, 0.05);
   
   /* Dark Theme Colors */
-  --primary-dark: #3498db;
-  --secondary-dark: #2ecc71;
-  --background-dark: #1a1a2e;
-  --surface-dark: #16213e;
-  --text-primary-dark: #ffffff;
-  --text-secondary-dark: #b2becd;
-  --border-dark: #2a2a3a;
-  --card-shadow-dark: 0 4px 6px rgba(0, 0, 0, 0.3);
+  --primary-dark: #84A9AC;               /* Bright sage */
+  --secondary-dark: #3D5A80;             /* Deep blue */
+  --tertiary-dark: #E07A5F;              /* Terra cotta */
+  --background-dark: #1A2327;            /* Darker background */
+  --surface-dark: #2F3E46;               /* Deep sage-blue */
+  --card-surface-dark: #354F52;          /* Medium sage-blue */
+  --text-primary-dark: #F6FFF8;          /* Off-white */
+  --text-secondary-dark: #CCE3DE;        /* Light sage */
+  --border-dark: #52796F;                /* Medium sage */
+  --card-shadow-dark: 0 8px 20px rgba(26, 35, 39, 0.4), 0 3px 10px rgba(26, 35, 39, 0.2);
   
   /* Common Colors */
-  --success: #27ae60;
-  --error: #e74c3c;
-  --warning: #f39c12;
-  --info: #3498db;
+  --success: #6B9080;
+  --error: #E07A5F;
+  --warning: #D9C589;
+  --info: #3D5A80;
+  
+  /* Gradient Colors */
+  --gradient-sage: linear-gradient(135deg, #6B9080, #CCE3DE);
+  --gradient-sunset: linear-gradient(135deg, #E07A5F, #D9C589);
+  --gradient-ocean: linear-gradient(135deg, #3D5A80, #84A9AC);
   
   /* Dimensions */
-  --section-padding: 30px 0;
-  --container-padding: 0 15px;
+  --section-padding: 60px 0;
+  --container-padding: 0 20px;
   --max-width: 1200px;
-  --border-radius: 8px;
+  --border-radius: 12px;
   --transition-speed: 0.3s;
   
   /* Other */
-  --font-family: 'Inter', 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+  --font-family: 'Poppins', 'Inter', 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
 }
 
 * {
@@ -63,7 +85,23 @@ body.dark-theme {
 a {
   text-decoration: none;
   color: var(--primary-light);
-  transition: color var(--transition-speed);
+  transition: all var(--transition-speed);
+  position: relative;
+}
+
+a::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--gradient-ocean);
+  transition: width 0.3s ease;
+}
+
+a:hover::after {
+  width: 100%;
 }
 
 body.dark-theme a {
@@ -92,6 +130,30 @@ img {
 section {
   padding: var(--section-padding);
   scroll-margin-top: 80px;
+  position: relative;
+}
+
+/* Add subtle pattern to sections */
+section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    radial-gradient(var(--sage-pale) 1px, transparent 1px),
+    radial-gradient(var(--sage-pale) 1px, transparent 1px);
+  background-size: 40px 40px;
+  background-position: 0 0, 20px 20px;
+  opacity: 0.3;
+  z-index: -1;
+}
+
+body.dark-theme section::before {
+  background-image: 
+    radial-gradient(rgba(204, 227, 222, 0.1) 1px, transparent 1px),
+    radial-gradient(rgba(204, 227, 222, 0.1) 1px, transparent 1px);
 }
 
 .container {
@@ -102,18 +164,44 @@ section {
 
 .highlight {
   color: var(--primary-light);
+  font-weight: 600;
+  position: relative;
+  display: inline-block;
+}
+
+.highlight::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 8px;
+  background: var(--sage-light);
+  opacity: 0.7;
+  border-radius: var(--border-radius);
+  z-index: -1;
 }
 
 body.dark-theme .highlight {
   color: var(--primary-dark);
 }
 
+body.dark-theme .highlight::after {
+  background: var(--sage-deep);
+  opacity: 0.4;
+}
+
 .section-title {
-  font-size: 2.5rem;
-  margin-bottom: 2.5rem;
+  font-size: 2.8rem;
+  margin-bottom: 3rem;
   text-align: center;
   position: relative;
-  padding-bottom: 1rem;
+  padding-bottom: 1.5rem;
+  color: var(--text-primary-light);
+}
+
+body.dark-theme .section-title {
+  color: var(--text-primary-dark);
 }
 
 .section-title::after {
@@ -122,13 +210,19 @@ body.dark-theme .highlight {
   bottom: 0;
   left: 50%;
   transform: translateX(-50%);
-  width: 80px;
+  width: 100px;
   height: 4px;
-  background: linear-gradient(to right, var(--primary-light), var(--secondary-light));
-  border-radius: 2px;
+  background: var(--gradient-sage);
+  border-radius: 3px;
 }
 
 .section-icon {
-  margin-right: 0.5rem;
+  margin-right: 0.75rem;
   vertical-align: middle;
+  font-size: 1.25em;
+  color: var(--sage-deep);
+}
+
+body.dark-theme .section-icon {
+  color: var(--sage-medium);
 }

@@ -1,10 +1,19 @@
-import React, { useContext, useState } from "react";
+import React, { useState, useContext, useRef } from "react";
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import ThemeContext from "../context/ThemeContext";
-import { FaEnvelope, FaMapMarkerAlt, FaPhone } from "react-icons/fa";
 import emailjs from "@emailjs/browser";
+import {
+  FaEnvelope,
+  FaMapMarkerAlt,
+  FaPhone,
+  FaLinkedin,
+  FaGithub,
+  FaTwitter,
+  FaPaperPlane,
+} from "react-icons/fa";
 import "./Contact.css";
+
 const Contact = () => {
   const { darkTheme } = useContext(ThemeContext);
   const [ref, inView] = useInView({
@@ -20,6 +29,7 @@ const Contact = () => {
   });
   const [isLoading, setIsLoading] = useState(false);
   const [formSuccess, setFormSuccess] = useState(null);
+  const [activeField, setActiveField] = useState(null);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -27,6 +37,14 @@ const Contact = () => {
       ...formData,
       [name]: value,
     });
+  };
+
+  const handleFocus = (field) => {
+    setActiveField(field);
+  };
+
+  const handleBlur = () => {
+    setActiveField(null);
   };
 
   const handleSubmit = async (e) => {
@@ -103,7 +121,7 @@ const Contact = () => {
         animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: -20 }}
         transition={{ duration: 0.6 }}
       >
-        <FaEnvelope className="section-icon" /> Contact Me
+        <FaEnvelope className="section-icon" /> Get In Touch
       </motion.h2>
 
       <motion.div
@@ -114,91 +132,170 @@ const Contact = () => {
         animate={inView ? "visible" : "hidden"}
       >
         <motion.div className="contact-info" variants={itemVariants}>
-          <div className="contact-item">
-            <FaEnvelope className="contact-icon" />
-            <div>
-              <h3>Email</h3>
-              <p>johndoe@example.com</p>
+          <div className="info-card">
+            <div className="info-header">
+              <h3>Let's Connect</h3>
+              <p>
+                Feel free to reach out for opportunities, questions, or just to
+                say hello!
+              </p>
             </div>
-          </div>
-          <div className="contact-item">
-            <FaPhone className="contact-icon" />
-            <div>
-              <h3>Phone</h3>
-              <p>+1 (123) 456-7890</p>
+
+            <div className="info-items">
+              <div className="contact-item">
+                <div className="contact-icon">
+                  <FaEnvelope />
+                </div>
+                <div>
+                  <h4>Email</h4>
+                  <p>johndoe@example.com</p>
+                </div>
+              </div>
+
+              <div className="contact-item">
+                <div className="contact-icon">
+                  <FaPhone />
+                </div>
+                <div>
+                  <h4>Phone</h4>
+                  <p>+1 (123) 456-7890</p>
+                </div>
+              </div>
+
+              <div className="contact-item">
+                <div className="contact-icon">
+                  <FaMapMarkerAlt />
+                </div>
+                <div>
+                  <h4>Location</h4>
+                  <p>San Francisco, CA</p>
+                </div>
+              </div>
             </div>
-          </div>
-          <div className="contact-item">
-            <FaMapMarkerAlt className="contact-icon" />
-            <div>
-              <h3>Location</h3>
-              <p>San Francisco, CA</p>
+
+            <div className="social-profiles">
+              <h4>My Profiles</h4>
+              <div className="social-links">
+                <a
+                  href="https://linkedin.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="social-link"
+                >
+                  <FaLinkedin />
+                </a>
+                <a
+                  href="https://github.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="social-link"
+                >
+                  <FaGithub />
+                </a>
+                <a
+                  href="https://twitter.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="social-link"
+                >
+                  <FaTwitter />
+                </a>
+              </div>
             </div>
           </div>
         </motion.div>
 
-        <motion.form
-          className="contact-form"
-          variants={itemVariants}
-          onSubmit={handleSubmit}
-        >
-          <div className="form-group">
-            <label htmlFor="name">Name</label>
-            <input
-              type="text"
-              id="name"
-              name="name"
-              value={formData.name}
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <div className="form-group">
-            <label htmlFor="email">Email</label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <div className="form-group">
-            <label htmlFor="subject">Subject</label>
-            <input
-              type="text"
-              id="subject"
-              name="subject"
-              value={formData.subject}
-              onChange={handleChange}
-            />
-          </div>
-          <div className="form-group">
-            <label htmlFor="message">Message</label>
-            <textarea
-              id="message"
-              name="message"
-              rows="5"
-              value={formData.message}
-              onChange={handleChange}
-              required
-            ></textarea>
-          </div>
-          <button
-            type="submit"
-            className={`send-button ${isLoading ? "loading" : ""}`}
-            disabled={isLoading}
-          >
-            {isLoading ? "Sending..." : "Send Message"}
-          </button>
-
-          {formSuccess && (
-            <div className={`form-message ${formSuccess.type}`}>
-              {formSuccess.message}
+        <motion.div className="contact-form-wrapper" variants={itemVariants}>
+          <form className="contact-form" onSubmit={handleSubmit}>
+            <div
+              className={`form-group ${activeField === "name" ? "active" : ""}`}
+            >
+              <label htmlFor="name">Name</label>
+              <input
+                type="text"
+                id="name"
+                name="name"
+                value={formData.name}
+                onChange={handleChange}
+                onFocus={() => handleFocus("name")}
+                onBlur={handleBlur}
+                required
+              />
             </div>
-          )}
-        </motion.form>
+
+            <div
+              className={`form-group ${
+                activeField === "email" ? "active" : ""
+              }`}
+            >
+              <label htmlFor="email">Email</label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                onFocus={() => handleFocus("email")}
+                onBlur={handleBlur}
+                required
+              />
+            </div>
+
+            <div
+              className={`form-group ${
+                activeField === "subject" ? "active" : ""
+              }`}
+            >
+              <label htmlFor="subject">Subject</label>
+              <input
+                type="text"
+                id="subject"
+                name="subject"
+                value={formData.subject}
+                onChange={handleChange}
+                onFocus={() => handleFocus("subject")}
+                onBlur={handleBlur}
+              />
+            </div>
+
+            <div
+              className={`form-group ${
+                activeField === "message" ? "active" : ""
+              }`}
+            >
+              <label htmlFor="message">Message</label>
+              <textarea
+                id="message"
+                name="message"
+                rows="5"
+                value={formData.message}
+                onChange={handleChange}
+                onFocus={() => handleFocus("message")}
+                onBlur={handleBlur}
+                required
+              ></textarea>
+            </div>
+
+            <button
+              type="submit"
+              className={`send-button ${isLoading ? "loading" : ""}`}
+              disabled={isLoading}
+            >
+              <span className="button-text">
+                {isLoading ? "Sending..." : "Send Message"}
+              </span>
+              <span className="button-icon">
+                <FaPaperPlane />
+              </span>
+            </button>
+
+            {formSuccess && (
+              <div className={`form-message ${formSuccess.type}`}>
+                {formSuccess.message}
+              </div>
+            )}
+          </form>
+        </motion.div>
       </motion.div>
     </div>
   );
