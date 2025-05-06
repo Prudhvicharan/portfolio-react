@@ -2,31 +2,79 @@ name: Deploy React App to GitHub Pages
 
 on:
   push:
-    branches:
-      - main
+    branches: ["main"]
+  workflow_dispatch:
 
 permissions:
   contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
+      - name: Checkout
+        uses: actions/checkout@v4
+      
+      - name: Setup Node
+        uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version: "18"
           cache: 'npm'
       
       - name: Install dependencies
         run: npm ci
       
+      - name: Create 404.html for SPA routing
+        run: |
+          # Create a simple script to ensure the public folder exists
+          mkdir -p public
+          # Create the 404.html file for SPA routing on GitHub Pages
+          cat > public/404.html << 'EOL'
+          <!DOCTYPE html>
+          <html>
+            <head>
+              <meta charset="utf-8">
+              <title>Single Page Apps for GitHub Pages</title>
+              <script type="text/javascript">
+                // Single Page Apps for GitHub Pages
+                // MIT License
+                // https://github.com/rafgraph/spa-github-pages
+                var pathSegmentsToKeep = 1;
+                var l = window.location;
+                l.replace(
+                  l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') +
+                  l.pathname.split('/').slice(0, 1 + pathSegmentsToKeep).join('/') + '/?/' +
+                  l.pathname.slice(1).split('/').slice(pathSegmentsToKeep).join('/').replace(/&/g, '~and~') +
+                  (l.search ? '&' + l.search.slice(1).replace(/&/g, '~and~') : '') +
+                  l.hash
+                );
+              </script>
+            </head>
+            <body>
+              Redirecting...
+            </body>
+          </html>
+          EOL
+      
+      - name: Add redirect script to index.html
+        run: |
+          # Add the SPA redirect script to index.html if it doesn't already have it
+          if ! grep -q "Single Page Apps for GitHub Pages" public/index.html; then
+            sed -i '/<head>/a \    <script type="text/javascript">\n      // Single Page Apps for GitHub Pages\n      // MIT License\n      // https://github.com/rafgraph/spa-github-pages\n      (function(l) {\n        if (l.search[1] === "/" ) {\n          var decoded = l.search.slice(1).split("&").map(function(s) { \n            return s.replace(/~and~/g, "&")\n          }).join("?");\n          window.history.replaceState(null, null,\n              l.pathname.slice(0, -1) + decoded + l.hash\n          );\n        }\n      }(window.location))\n    </script>' public/index.html
+          fi
+      
       - name: Build
         run: CI=false npm run build
-        
+      
+      - name: Copy index.html to 404.html in build folder
+        run: cp build/index.html build/404.html
+      
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
