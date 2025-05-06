@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import ThemeContext from "../context/ThemeContext";
 import { FaLinkedin, FaGithub, FaEnvelope } from "react-icons/fa";
@@ -15,19 +15,19 @@ gsap.registerPlugin(TextPlugin);
 const Home = () => {
   const { darkTheme } = useContext(ThemeContext);
 
+  // Store roles in a state or memoized value to avoid recreating on each render
+  const [roles] = useState([
+    "Full Stack Developer",
+    "UI/UX Enthusiast",
+    "Problem Solver",
+    "Code Architect",
+  ]);
+
   // Refs for GSAP animations
   const titleRef = useRef(null);
   const subtitleRef = useRef(null);
   const circleRef = useRef(null);
   const imageContainerRef = useRef(null);
-
-  // Text typing animation for the role
-  const roles = [
-    "Full Stack Developer",
-    "UI/UX Enthusiast",
-    "Problem Solver",
-    "Code Architect",
-  ];
 
   useEffect(() => {
     // Particle animation for the background
@@ -180,7 +180,7 @@ const Home = () => {
       window.removeEventListener("resize", handleResize);
       clearInterval(roleRotation);
     };
-  }, [darkTheme]);
+  }, [darkTheme, roles]); // Added roles to dependency array
 
   // Interactive mouse follower blob
   const blobRef = useRef(null);
@@ -232,7 +232,10 @@ const Home = () => {
             Hello, I'm <span className="highlight">John Doe</span>
           </h1>
 
-          <h2 className="typewriter" ref={subtitleRef}></h2>
+          <h2 className="typewriter" ref={subtitleRef}>
+            {/* Content will be dynamically inserted by GSAP */}
+            <span style={{ opacity: 0 }}>.</span>
+          </h2>
 
           <motion.p
             initial={{ opacity: 0 }}

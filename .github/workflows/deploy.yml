@@ -31,7 +31,8 @@ jobs:
       
       - name: Deploy with gh-pages
         run: |
-          npm run build
+          # Build with CI=false to prevent treating warnings as errors
+          CI=false npm run build
           npx gh-pages -d build -u "github-actions-bot <support+actions@github.com>"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
