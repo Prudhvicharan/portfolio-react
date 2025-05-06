@@ -1,135 +1,25 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Page Not Found | Developer Portfolio</title>
-  <style>
-    :root {
-      --primary-color: #3D5A80;
-      --background-color: #ffffff;
-      --text-color: #2F3E46;
-      --accent-color: #6B9080;
-    }
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Single Page Apps for GitHub Pages</title>
+    <script type="text/javascript">
+      // Single Page Apps for GitHub Pages
+      // MIT License
+      // https://github.com/rafgraph/spa-github-pages
+      var pathSegmentsToKeep = 1;
 
-    @media (prefers-color-scheme: dark) {
-      :root {
-        --primary-color: #84A9AC;
-        --background-color: #1A2327;
-        --text-color: #F6FFF8;
-        --accent-color: #3D5A80;
-      }
-    }
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: 'Poppins', 'Inter', 'Segoe UI', Roboto, sans-serif;
-      background-color: var(--background-color);
-      color: var(--text-color);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      min-height: 100vh;
-      padding: 2rem;
-      text-align: center;
-    }
-
-    .container {
-      max-width: 600px;
-      margin: 0 auto;
-    }
-
-    h1 {
-      font-size: 5rem;
-      margin-bottom: 1rem;
-      color: var(--primary-color);
-    }
-
-    h2 {
-      font-size: 2rem;
-      margin-bottom: 2rem;
-    }
-
-    p {
-      margin-bottom: 2rem;
-      font-size: 1.2rem;
-      line-height: 1.6;
-    }
-
-    .button {
-      display: inline-block;
-      padding: 12px 28px;
-      border-radius: 30px;
-      font-weight: 600;
-      text-decoration: none;
-      font-size: 1rem;
-      text-align: center;
-      background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
-      color: white;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-      transition: all 0.3s ease;
-    }
-
-    .button:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
-    }
-
-    .code-digit {
-      animation: pulse 2s infinite alternate;
-      display: inline-block;
-    }
-
-    .code-digit:nth-child(2) {
-      animation-delay: 0.3s;
-    }
-
-    .code-digit:nth-child(3) {
-      animation-delay: 0.6s;
-    }
-
-    @keyframes pulse {
-      from {
-        opacity: 1;
-        transform: scale(1);
-      }
-      to {
-        opacity: 0.8;
-        transform: scale(1.1);
-      }
-    }
-  </style>
-  <!-- Redirect script for SPA routing with GitHub Pages -->
-  <script type="text/javascript">
-    // Check if this is a redirect from a direct access to a route
-    (function() {
-      var redirect = sessionStorage.redirect;
-      delete sessionStorage.redirect;
-      if (redirect && redirect != location.href) {
-        history.replaceState(null, null, redirect);
-      }
-    })();
-  </script>
-</head>
-<body>
-  <div class="container">
-    <h1>
-      <span class="code-digit">4</span>
-      <span class="code-digit">0</span>
-      <span class="code-digit">4</span>
-    </h1>
-    <h2>Page Not Found</h2>
-    <p>
-      Oops! The page you're looking for doesn't exist or has been moved.
-      Let's get you back to the portfolio.
-    </p>
-    <a href="/" class="button">Return to Homepage</a>
-  </div>
-</body>
+      var l = window.location;
+      l.replace(
+        l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') +
+        l.pathname.split('/').slice(0, 1 + pathSegmentsToKeep).join('/') + '/?/' +
+        l.pathname.slice(1).split('/').slice(pathSegmentsToKeep).join('/').replace(/&/g, '~and~') +
+        (l.search ? '&' + l.search.slice(1).replace(/&/g, '~and~') : '') +
+        l.hash
+      );
+    </script>
+  </head>
+  <body>
+    Redirecting...
+  </body>
 </html>
