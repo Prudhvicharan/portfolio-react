@@ -18,7 +18,7 @@ const Footer = () => {
       <div className="footer-container">
         <div className="footer-top">
           <div className="footer-logo">
-            <h2>John Doe</h2>
+            <h2>Sai Prudhvi Charan Pothumsetty</h2>
             <p>Full Stack Developer</p>
           </div>
 
@@ -78,7 +78,10 @@ const Footer = () => {
                 >
                   <FaGithub />
                 </a>
-                <a href="mailto:johndoe@example.com" aria-label="Email">
+                <a
+                  href="mailto:bunnycharanprudhvi@gmail.com"
+                  aria-label="Email"
+                >
                   <FaEnvelope />
                 </a>
               </div>
@@ -88,7 +91,8 @@ const Footer = () => {
 
         <div className="footer-bottom">
           <p>
-            &copy; {new Date().getFullYear()} John Doe. All Rights Reserved.
+            &copy; {new Date().getFullYear()} Sai Prudhvi Charan Pothumsetty.
+            All Rights Reserved.
           </p>
           <button
             className="scroll-to-top"

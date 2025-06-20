@@ -229,7 +229,8 @@ const Home = () => {
           transition={{ duration: 0.8 }}
         >
           <h1 ref={titleRef}>
-            Hello, I am <span className="highlight">John Doe</span>
+            Hello, I am{" "}
+            <span className="highlight">Sai Prudhvi Charan Pothumsetty</span>
           </h1>
 
           <h2 className="typewriter" ref={subtitleRef}>
@@ -299,7 +300,7 @@ const Home = () => {
           <div className="profile-circle" ref={circleRef}>
             <div className="hexagon">
               <div className="hexagon-inner">
-                <img src={profilePic} alt="John Doe" />
+                <img src={profilePic} alt="Sai Prudhvi Charan Pothumsetty" />
               </div>
             </div>
           </div>
