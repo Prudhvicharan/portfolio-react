@@ -1,63 +1,39 @@
 import React, { useState, useEffect } from "react";
-import { BrowserRouter as Router } from "react-router-dom";
-import Navbar from "./components/Navbar.jsx";
-import Home from "./components/Home.jsx";
-import Experience from "./components/Experience.jsx";
-import Education from "./components/Education.jsx";
-import Projects from "./components/Projects.jsx";
-import Skills from "./components/Skills.jsx";
-import Contact from "./components/Contact.jsx";
-import Footer from "./components/Footer.jsx";
-import ThemeContext from "./context/ThemeContext.js";
 import "./App.css";
 
+import Navbar from "./components/Navbar";
+import Home from "./components/Home";
+import Projects from "./components/Projects";
+import Skills from "./components/Skills";
+import Timeline from "./components/Timeline";
+import Contact from "./components/Contact";
+import Footer from "./components/Footer";
+import ScrollToTop from "./components/ScrollToTop";
+
 function App() {
-  // Theme state (light or dark)
-  const [darkTheme, setDarkTheme] = useState(false);
+  const [theme, setTheme] = useState("light-theme");
 
-  // Effect to apply theme to body
-  useEffect(() => {
-    if (darkTheme) {
-      document.body.classList.add("dark-theme");
-    } else {
-      document.body.classList.remove("dark-theme");
-    }
-  }, [darkTheme]);
-
-  // Toggle theme function
   const toggleTheme = () => {
-    setDarkTheme(!darkTheme);
+    setTheme(theme === "dark-theme" ? "light-theme" : "dark-theme");
   };
 
+  useEffect(() => {
+    document.body.className = theme;
+  }, [theme]);
+
   return (
-    <ThemeContext.Provider value={{ darkTheme, toggleTheme }}>
-      <Router>
-        <div className="app">
-          <Navbar />
-          <main>
-            <section id="home">
-              <Home />
-            </section>
-            <section id="experience">
-              <Experience />
-            </section>
-            <section id="education">
-              <Education />
-            </section>
-            <section id="projects">
-              <Projects />
-            </section>
-            <section id="skills">
-              <Skills />
-            </section>
-            <section id="contact">
-              <Contact />
-            </section>
-          </main>
-          <Footer />
-        </div>
-      </Router>
-    </ThemeContext.Provider>
+    <>
+      <Navbar toggleTheme={toggleTheme} theme={theme} />
+      <main>
+        <Home />
+        <Projects />
+        <Skills />
+        <Timeline />
+        <Contact />
+      </main>
+      <Footer />
+      <ScrollToTop />
+    </>
   );
 }
 

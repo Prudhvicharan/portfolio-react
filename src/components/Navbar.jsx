@@ -1,138 +1,121 @@
 // In your Navbar.jsx file
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-scroll";
-import ThemeContext from "../context/ThemeContext";
-// Import an alternate set of icons from react-icons instead of heroicons
+import { motion, useScroll } from "framer-motion";
 import { FaSun, FaMoon, FaBars, FaTimes } from "react-icons/fa";
 import "./Navbar.css";
-const Navbar = () => {
-  const { darkTheme, toggleTheme } = useContext(ThemeContext);
-  const [scrolled, setScrolled] = useState(false);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  // Handle scroll effect for navbar
+const Navbar = ({ theme, toggleTheme }) => {
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { scrollYProgress } = useScroll();
+
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 50) {
-        setScrolled(true);
-      } else {
-        setScrolled(false);
+      setIsScrolled(window.scrollY > 50);
+    };
+
+    const handleResize = () => {
+      if (window.innerWidth > 900) {
+        setIsMenuOpen(false);
       }
     };
 
     window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+    window.addEventListener("resize", handleResize);
 
-  // Toggle mobile menu
-  const toggleMobileMenu = () => {
-    setMobileMenuOpen(!mobileMenuOpen);
-  };
+    if (isMenuOpen) {
+      document.body.classList.add("mobile-menu-open");
+    } else {
+      document.body.classList.remove("mobile-menu-open");
+    }
 
-  // Close mobile menu when clicking a link
-  const closeMobileMenu = () => {
-    setMobileMenuOpen(false);
-  };
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", handleResize);
+      document.body.classList.remove("mobile-menu-open");
+    };
+  }, [isMenuOpen]);
+
+  const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
+  const closeMenu = () => setIsMenuOpen(false);
 
   // Nav links
   const navLinks = [
     { name: "Home", to: "home" },
-    { name: "Experience", to: "experience" },
-    { name: "Education", to: "education" },
     { name: "Projects", to: "projects" },
     { name: "Skills", to: "skills" },
+    { name: "My Journey", to: "timeline" },
     { name: "Contact", to: "contact" },
   ];
 
   return (
-    <nav
-      className={`navbar ${scrolled ? "scrolled" : ""} ${
-        darkTheme ? "dark" : ""
-      }`}
-      role="navigation"
-      aria-label="Main Navigation"
-    >
-      <div className="navbar-container">
-        <div className="logo">
-          <span>Portfolio</span>
+    <>
+      {/* Scroll Progress Bar */}
+      <motion.div
+        className="scroll-progress-bar"
+        style={{ scaleX: scrollYProgress }}
+      />
+
+      <nav className={`navbar ${isScrolled ? "scrolled" : ""}`}>
+        <div className="navbar-container">
+          <a href="#home" className="nav-logo" onClick={closeMenu}>
+            My Portfolio
+          </a>
+          <div className="nav-menu-desktop">
+            {navLinks.map((link) => (
+              <Link
+                key={link.to}
+                to={link.to}
+                spy={true}
+                smooth={true}
+                offset={-80}
+                duration={0}
+                className="nav-item"
+                activeClass="active"
+              >
+                {link.name}
+              </Link>
+            ))}
+          </div>
+
+          <div className="nav-right">
+            <button
+              className="theme-toggle-btn"
+              onClick={toggleTheme}
+              aria-label="Toggle Theme"
+            >
+              {theme === "dark-theme" ? <FaSun /> : <FaMoon />}
+            </button>
+            <button
+              className="mobile-menu-icon"
+              onClick={toggleMenu}
+              aria-label="Menu"
+            >
+              {isMenuOpen ? <FaTimes /> : <FaBars />}
+            </button>
+          </div>
         </div>
 
-        {/* Desktop Navigation */}
-        <div className="nav-links desktop">
+        <div className={`mobile-nav-menu ${isMenuOpen ? "active" : ""}`}>
           {navLinks.map((link) => (
             <Link
               key={link.to}
               to={link.to}
               spy={true}
               smooth={true}
-              offset={-70}
+              offset={-80}
               duration={500}
-              className="nav-link"
+              className="nav-item-mobile"
               activeClass="active"
-            >
-              {link.name}
-            </Link>
-          ))}
-          {/* Make the theme toggle more visible */}
-          <button
-            className="theme-toggle-visible"
-            onClick={toggleTheme}
-            aria-label="Toggle theme"
-          >
-            {darkTheme ? <FaSun size={18} /> : <FaMoon size={18} />}
-          </button>
-        </div>
-
-        {/* Mobile Menu Button */}
-        <div className="mobile-menu-button">
-          <button onClick={toggleMobileMenu} aria-label="Menu">
-            {mobileMenuOpen ? <FaTimes size={24} /> : <FaBars size={24} />}
-          </button>
-          {/* More visible mobile theme toggle */}
-          <button
-            className="theme-toggle-visible"
-            onClick={toggleTheme}
-            aria-label="Toggle theme"
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              marginLeft: "0.5rem",
-              background: darkTheme
-                ? "rgba(255, 255, 255, 0.2)"
-                : "rgba(0, 0, 0, 0.1)",
-              border: "none",
-              borderRadius: "50%",
-              width: "40px",
-              height: "40px",
-              cursor: "pointer",
-              transition: "all 0.3s ease",
-            }}
-          >
-            {darkTheme ? <FaSun size={18} /> : <FaMoon size={18} />}
-          </button>
-        </div>
-
-        {/* Mobile Navigation */}
-        <div className={`mobile-menu ${mobileMenuOpen ? "active" : ""}`}>
-          {navLinks.map((link) => (
-            <Link
-              key={link.to}
-              to={link.to}
-              spy={true}
-              smooth={true}
-              offset={-70}
-              duration={500}
-              className="mobile-nav-link"
-              activeClass="active"
-              onClick={closeMobileMenu}
+              onClick={closeMenu}
             >
               {link.name}
             </Link>
           ))}
         </div>
-      </div>
-    </nav>
+      </nav>
+    </>
   );
 };
 

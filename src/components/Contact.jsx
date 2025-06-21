@@ -1,22 +1,48 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
-import ThemeContext from "../context/ThemeContext";
 import emailjs from "@emailjs/browser";
 import {
   FaEnvelope,
-  FaMapMarkerAlt,
-  FaPhone,
   FaLinkedin,
   FaGithub,
   FaTwitter,
+  FaPhone,
+  FaMapMarkerAlt,
   FaPaperPlane,
 } from "react-icons/fa";
+import SectionTitle from "./common/SectionTitle";
 import "./Contact.css";
 
+const contactInfo = [
+  {
+    icon: <FaEnvelope />,
+    title: "Email",
+    text: "bunnycharanprudhvi@gmail.com",
+    link: "mailto:bunnycharanprudhvi@gmail.com",
+  },
+  {
+    icon: <FaPhone />,
+    title: "Phone",
+    text: "+1 (123) 456-7890",
+    link: "tel:+11234567890",
+  },
+  {
+    icon: <FaMapMarkerAlt />,
+    title: "Location",
+    text: "San Francisco, CA",
+    link: "https://www.google.com/maps/place/San+Francisco,+CA",
+  },
+];
+
+const socialLinks = [
+  { icon: <FaLinkedin />, href: "https://linkedin.com" },
+  { icon: <FaGithub />, href: "https://github.com" },
+  { icon: <FaTwitter />, href: "https://twitter.com" },
+];
+
 const Contact = () => {
-  const { darkTheme } = useContext(ThemeContext);
-  const [ref, inView] = useInView({
+  const { ref, inView } = useInView({
     triggerOnce: true,
     threshold: 0.1,
   });
@@ -29,22 +55,10 @@ const Contact = () => {
   });
   const [isLoading, setIsLoading] = useState(false);
   const [formSuccess, setFormSuccess] = useState(null);
-  const [activeField, setActiveField] = useState(null);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
-  };
-
-  const handleFocus = (field) => {
-    setActiveField(field);
-  };
-
-  const handleBlur = () => {
-    setActiveField(null);
+    setFormData({ ...formData, [name]: value });
   };
 
   const handleSubmit = async (e) => {
@@ -71,12 +85,7 @@ const Contact = () => {
           type: "success",
           message: "Message Sent Successfully!",
         });
-        setFormData({
-          name: "",
-          email: "",
-          subject: "",
-          message: "",
-        });
+        setFormData({ name: "", email: "", subject: "", message: "" });
       }
     } catch (error) {
       console.error("Error sending email:", error);
@@ -96,212 +105,142 @@ const Contact = () => {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
-      transition: {
-        staggerChildren: 0.2,
-      },
+      transition: { staggerChildren: 0.2, delayChildren: 0.1 },
     },
   };
 
   const itemVariants = {
-    hidden: { y: 20, opacity: 0 },
-    visible: {
-      y: 0,
-      opacity: 1,
-      transition: {
-        duration: 0.5,
-      },
-    },
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
   };
 
   return (
-    <div className={`contact-container ${darkTheme ? "dark" : ""}`}>
-      <motion.h2
-        className="section-title"
-        initial={{ opacity: 0, y: -20 }}
-        animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: -20 }}
-        transition={{ duration: 0.6 }}
-      >
-        <FaEnvelope className="section-icon" /> Get In Touch
-      </motion.h2>
+    <div className="contact-section" id="contact" ref={ref}>
+      <div className="container">
+        <SectionTitle>Get In Touch</SectionTitle>
+        <motion.p
+          className="contact-intro"
+          initial={{ opacity: 0, y: -20 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.5, delay: 0.2 }}
+        >
+          Feel free to reach out for opportunities, questions, or just to say
+          hello!
+        </motion.p>
 
-      <motion.div
-        ref={ref}
-        className="contact-content"
-        variants={containerVariants}
-        initial="hidden"
-        animate={inView ? "visible" : "hidden"}
-      >
-        <motion.div className="contact-info" variants={itemVariants}>
-          <div className="info-card">
-            <div className="info-header">
-              <h3>Let's Connect</h3>
-              <p>
-                Feel free to reach out for opportunities, questions, or just to
-                say hello!
-              </p>
-            </div>
-
-            <div className="info-items">
-              <div className="contact-item">
-                <div className="contact-icon">
-                  <FaEnvelope />
+        <motion.div
+          className="contact-container"
+          variants={containerVariants}
+          initial="hidden"
+          animate={inView ? "visible" : "hidden"}
+        >
+          <motion.div className="contact-info-cards" variants={itemVariants}>
+            {contactInfo.map((info, index) => (
+              <a
+                href={info.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="contact-card-link"
+                key={index}
+              >
+                <div className="contact-card">
+                  <div className="contact-card-icon">{info.icon}</div>
+                  <div>
+                    <h3 className="contact-card-title">{info.title}</h3>
+                    <p className="contact-card-text">{info.text}</p>
+                  </div>
                 </div>
-                <div>
-                  <h4>Email</h4>
-                  <p>bunnycharanprudhvi@gmail.com</p>
-                </div>
-              </div>
-
-              <div className="contact-item">
-                <div className="contact-icon">
-                  <FaPhone />
-                </div>
-                <div>
-                  <h4>Phone</h4>
-                  <p>+1 (123) 456-7890</p>
-                </div>
-              </div>
-
-              <div className="contact-item">
-                <div className="contact-icon">
-                  <FaMapMarkerAlt />
-                </div>
-                <div>
-                  <h4>Location</h4>
-                  <p>San Francisco, CA</p>
-                </div>
-              </div>
-            </div>
-
+              </a>
+            ))}
             <div className="social-profiles">
-              <h4>My Profiles</h4>
-              <div className="social-links">
+              {socialLinks.map((social, index) => (
                 <a
-                  href="https://linkedin.com"
+                  key={index}
+                  href={social.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="social-link"
+                  className="social-icon-link"
                 >
-                  <FaLinkedin />
+                  {social.icon}
                 </a>
-                <a
-                  href="https://github.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="social-link"
-                >
-                  <FaGithub />
-                </a>
-                <a
-                  href="https://twitter.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="social-link"
-                >
-                  <FaTwitter />
-                </a>
-              </div>
+              ))}
             </div>
-          </div>
-        </motion.div>
+          </motion.div>
 
-        <motion.div className="contact-form-wrapper" variants={itemVariants}>
-          <form
-            className="contact-form"
-            onSubmit={handleSubmit}
-            role="form"
-            aria-label="Contact Form"
+          <motion.div
+            className="contact-form-container"
+            variants={itemVariants}
           >
-            <div
-              className={`form-group ${activeField === "name" ? "active" : ""}`}
-            >
-              <label htmlFor="name">Name</label>
-              <input
-                type="text"
-                id="name"
-                name="name"
-                value={formData.name}
-                onChange={handleChange}
-                onFocus={() => handleFocus("name")}
-                onBlur={handleBlur}
-                required
-              />
-            </div>
-
-            <div
-              className={`form-group ${
-                activeField === "email" ? "active" : ""
-              }`}
-            >
-              <label htmlFor="email">Email</label>
-              <input
-                type="email"
-                id="email"
-                name="email"
-                value={formData.email}
-                onChange={handleChange}
-                onFocus={() => handleFocus("email")}
-                onBlur={handleBlur}
-                required
-              />
-            </div>
-
-            <div
-              className={`form-group ${
-                activeField === "subject" ? "active" : ""
-              }`}
-            >
-              <label htmlFor="subject">Subject</label>
-              <input
-                type="text"
-                id="subject"
-                name="subject"
-                value={formData.subject}
-                onChange={handleChange}
-                onFocus={() => handleFocus("subject")}
-                onBlur={handleBlur}
-              />
-            </div>
-
-            <div
-              className={`form-group ${
-                activeField === "message" ? "active" : ""
-              }`}
-            >
-              <label htmlFor="message">Message</label>
-              <textarea
-                id="message"
-                name="message"
-                rows="5"
-                value={formData.message}
-                onChange={handleChange}
-                onFocus={() => handleFocus("message")}
-                onBlur={handleBlur}
-                required
-              ></textarea>
-            </div>
-
-            <button
-              type="submit"
-              className={`send-button ${isLoading ? "loading" : ""}`}
-              disabled={isLoading}
-            >
-              <span className="button-text">
-                {isLoading ? "Sending..." : "Send Message"}
-              </span>
-              <span className="button-icon">
-                <FaPaperPlane />
-              </span>
-            </button>
-
-            {formSuccess && (
-              <div className={`form-message ${formSuccess.type}`}>
-                {formSuccess.message}
+            <form onSubmit={handleSubmit}>
+              <div className="form-group">
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleChange}
+                  required
+                />
+                <label htmlFor="name">Your Name</label>
               </div>
-            )}
-          </form>
+              <div className="form-group">
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  required
+                />
+                <label htmlFor="email">Your Email</label>
+              </div>
+              <div className="form-group">
+                <input
+                  type="text"
+                  id="subject"
+                  name="subject"
+                  value={formData.subject}
+                  onChange={handleChange}
+                  required
+                />
+                <label htmlFor="subject">Subject</label>
+              </div>
+              <div className="form-group">
+                <textarea
+                  id="message"
+                  name="message"
+                  rows="5"
+                  value={formData.message}
+                  onChange={handleChange}
+                  required
+                ></textarea>
+                <label htmlFor="message">Your Message</label>
+              </div>
+
+              <button
+                type="submit"
+                className={`btn btn-primary send-button ${
+                  isLoading ? "loading" : ""
+                }`}
+                disabled={isLoading}
+              >
+                <span className="button-text">
+                  {isLoading ? "Sending..." : "Send Message"}
+                </span>
+                <span className="button-icon">
+                  <FaPaperPlane />
+                </span>
+              </button>
+
+              {formSuccess && (
+                <div className={`form-message ${formSuccess.type}`}>
+                  {formSuccess.message}
+                </div>
+              )}
+            </form>
+          </motion.div>
         </motion.div>
-      </motion.div>
+      </div>
     </div>
   );
 };

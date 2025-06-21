@@ -212,3 +212,64 @@ body.dark-theme .social-button,
 body.dark-theme .scroll-to-top {
   box-shadow: var(--card-shadow-dark);
 }
+
+/* ===== Modern Footer Section Styles ===== */
+
+.footer-section {
+  background-color: var(--bg-secondary);
+  border-top: 1px solid var(--border-primary);
+  padding: var(--space-10) var(--space-4);
+}
+
+.dark-theme .footer-section {
+  background-color: var(--bg-secondary-dark);
+  border-top-color: var(--border-primary-dark);
+}
+
+.footer-container {
+  max-width: 800px;
+}
+
+.footer-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: var(--space-6);
+}
+
+.footer-socials {
+  display: flex;
+  gap: var(--space-8);
+}
+
+.social-icon {
+  font-size: 1.8rem;
+  color: var(--text-secondary);
+  transition: color var(--transition-normal);
+}
+
+.social-icon:hover {
+  color: var(--primary-500);
+}
+
+.footer-text p {
+  margin: 0;
+  font-size: var(--text-base);
+  color: var(--text-secondary);
+}
+
+.footer-text p:first-child {
+  font-weight: 500;
+  margin-bottom: var(--space-2);
+}
+
+@media screen and (max-width: 600px) {
+  .footer-text p {
+    font-size: var(--text-sm);
+  }
+
+  .social-icon {
+    font-size: 1.6rem;
+  }
+}

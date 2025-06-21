@@ -1,107 +1,47 @@
-import React, { useContext } from "react";
-import { Link } from "react-scroll";
-import ThemeContext from "../context/ThemeContext";
-import { FaLinkedin, FaGithub, FaEnvelope, FaArrowUp } from "react-icons/fa";
+import React from "react";
+import { motion } from "framer-motion";
+import { FaLinkedin, FaGithub, FaTwitter } from "react-icons/fa";
 import "./Footer.css";
-const Footer = () => {
-  const { darkTheme } = useContext(ThemeContext);
 
-  const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
-  };
+const socialLinks = [
+  { icon: <FaLinkedin />, href: "https://linkedin.com/in/prudhvi-charan" },
+  { icon: <FaGithub />, href: "https://github.com/Prudhvicharan" },
+  { icon: <FaTwitter />, href: "https://twitter.com/Prudhvicharan" },
+];
+
+const Footer = () => {
+  const currentYear = new Date().getFullYear();
 
   return (
-    <footer className={`footer ${darkTheme ? "dark" : ""}`}>
-      <div className="footer-container">
-        <div className="footer-top">
-          <div className="footer-logo">
-            <h2>Sai Prudhvi Charan Pothumsetty</h2>
-            <p>Full Stack Developer</p>
+    <footer className="footer-section">
+      <div className="container footer-container">
+        <motion.div
+          className="footer-content"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
+        >
+          <div className="footer-socials">
+            {socialLinks.map((social, index) => (
+              <motion.a
+                key={index}
+                href={social.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="social-icon"
+                whileHover={{ scale: 1.2, y: -2, color: "var(--primary-500)" }}
+                transition={{ duration: 0.2 }}
+              >
+                {social.icon}
+              </motion.a>
+            ))}
           </div>
-
-          <div className="footer-links">
-            <div className="footer-nav">
-              <h3>Navigation</h3>
-              <ul>
-                <li>
-                  <Link to="home" smooth={true} duration={500}>
-                    Home
-                  </Link>
-                </li>
-                <li>
-                  <Link to="experience" smooth={true} duration={500}>
-                    Experience
-                  </Link>
-                </li>
-                <li>
-                  <Link to="education" smooth={true} duration={500}>
-                    Education
-                  </Link>
-                </li>
-                <li>
-                  <Link to="projects" smooth={true} duration={500}>
-                    Projects
-                  </Link>
-                </li>
-                <li>
-                  <Link to="skills" smooth={true} duration={500}>
-                    Skills
-                  </Link>
-                </li>
-                <li>
-                  <Link to="contact" smooth={true} duration={500}>
-                    Contact
-                  </Link>
-                </li>
-              </ul>
-            </div>
-
-            <div className="footer-social">
-              <h3>Connect</h3>
-              <div className="social-icons">
-                <a
-                  href="https://linkedin.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="LinkedIn"
-                >
-                  <FaLinkedin />
-                </a>
-                <a
-                  href="https://github.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="GitHub"
-                >
-                  <FaGithub />
-                </a>
-                <a
-                  href="mailto:bunnycharanprudhvi@gmail.com"
-                  aria-label="Email"
-                >
-                  <FaEnvelope />
-                </a>
-              </div>
-            </div>
+          <div className="footer-text">
+            <p>&copy; {currentYear} Sagar Gundla. All rights reserved.</p>
+            <p>Designed with passion and coded with React.</p>
           </div>
-        </div>
-
-        <div className="footer-bottom">
-          <p>
-            &copy; {new Date().getFullYear()} Sai Prudhvi Charan Pothumsetty.
-            All Rights Reserved.
-          </p>
-          <button
-            className="scroll-to-top"
-            onClick={scrollToTop}
-            aria-label="Scroll to top"
-          >
-            <FaArrowUp />
-          </button>
-        </div>
+        </motion.div>
       </div>
     </footer>
   );

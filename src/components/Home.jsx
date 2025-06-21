@@ -1,344 +1,175 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
-import ThemeContext from "../context/ThemeContext";
-import { FaLinkedin, FaGithub, FaEnvelope } from "react-icons/fa";
+import { useInView } from "react-intersection-observer";
+import { FaPlay, FaPause, FaArrowDown, FaDownload } from "react-icons/fa";
+import {
+  SiJavascript,
+  SiReact,
+  SiNodedotjs,
+  SiExpress,
+  SiMongodb,
+  SiHtml5,
+  SiCss3,
+  SiTypescript,
+} from "react-icons/si";
+import profilePic from "../assets/profile-pic.png";
 import "./Home.css";
 
-// Import GSAP for more advanced animations
-import { gsap } from "gsap";
-import { TextPlugin } from "gsap/TextPlugin";
-import profilePic from "../assets/profile-pic.png";
+const techStack = [
+  { name: "JavaScript", icon: <SiJavascript />, speed: 1 },
+  { name: "React", icon: <SiReact />, speed: 1.2 },
+  { name: "Node.js", icon: <SiNodedotjs />, speed: 0.9 },
+  { name: "TypeScript", icon: <SiTypescript />, speed: 1.1 },
+  { name: "HTML5", icon: <SiHtml5 />, speed: 0.8 },
+  { name: "CSS3", icon: <SiCss3 />, speed: 0.9 },
+  { name: "MongoDB", icon: <SiMongodb />, speed: 1.3 },
+  { name: "Express", icon: <SiExpress />, speed: 1 },
+];
 
-// Register TextPlugin
-gsap.registerPlugin(TextPlugin);
-
-const Home = () => {
-  const { darkTheme } = useContext(ThemeContext);
-
-  // Store roles in a state or memoized value to avoid recreating on each render
-  const [roles] = useState([
-    "Full Stack Developer",
-    "UI/UX Enthusiast",
-    "Problem Solver",
-    "Code Architect",
-  ]);
-
-  // Refs for GSAP animations
-  const titleRef = useRef(null);
-  const subtitleRef = useRef(null);
-  const circleRef = useRef(null);
-  const imageContainerRef = useRef(null);
+const TechIcon = ({ icon, name, angle, speed, isOrbiting }) => {
+  const [position, setPosition] = useState({ x: 0, y: 0 });
 
   useEffect(() => {
-    // Particle animation for the background
-    const canvas = document.getElementById("particle-canvas");
-    const ctx = canvas.getContext("2d");
-
-    // Set canvas size
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-
-    // Particle settings
-    const particleCount = 100;
-    const particles = [];
-
-    // Particle class
-    class Particle {
-      constructor() {
-        this.x = Math.random() * canvas.width;
-        this.y = Math.random() * canvas.height;
-        this.size = Math.random() * 3 + 1;
-        this.speedX = Math.random() * 1 - 0.5;
-        this.speedY = Math.random() * 1 - 0.5;
-        this.color = darkTheme
-          ? `rgba(${Math.floor(Math.random() * 50 + 30)}, ${Math.floor(
-              Math.random() * 80 + 100
-            )}, ${Math.floor(Math.random() * 80 + 175)}, ${
-              Math.random() * 0.5 + 0.3
-            })`
-          : `rgba(${Math.floor(Math.random() * 80 + 100)}, ${Math.floor(
-              Math.random() * 80 + 100
-            )}, ${Math.floor(Math.random() * 80 + 175)}, ${
-              Math.random() * 0.3 + 0.1
-            })`;
+    let animationFrameId;
+    const animate = (time) => {
+      if (isOrbiting) {
+        const orbitRadius = window.innerWidth > 900 ? 160 : 120;
+        const currentAngle = angle + time * 0.0005 * speed;
+        setPosition({
+          x: Math.cos(currentAngle) * orbitRadius,
+          y: Math.sin(currentAngle) * orbitRadius,
+        });
+        animationFrameId = requestAnimationFrame(animate);
       }
+    };
 
-      update() {
-        this.x += this.speedX;
-        this.y += this.speedY;
-
-        // Wrap around edges
-        if (this.x > canvas.width) this.x = 0;
-        else if (this.x < 0) this.x = canvas.width;
-
-        if (this.y > canvas.height) this.y = 0;
-        else if (this.y < 0) this.y = canvas.height;
-      }
-
-      draw() {
-        ctx.fillStyle = this.color;
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-        ctx.fill();
+    if (isOrbiting) {
+      animationFrameId = requestAnimationFrame(animate);
+    } else {
+      setPosition({ x: 0, y: 0 });
+      if (animationFrameId) {
+        cancelAnimationFrame(animationFrameId);
       }
     }
 
-    // Create particles
-    for (let i = 0; i < particleCount; i++) {
-      particles.push(new Particle());
-    }
-
-    // Animation function
-    const animate = () => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-      // Update and draw particles
-      particles.forEach((particle) => {
-        particle.update();
-        particle.draw();
-      });
-
-      // Connect particles with lines if they're close enough
-      for (let i = 0; i < particles.length; i++) {
-        for (let j = i + 1; j < particles.length; j++) {
-          const dx = particles[i].x - particles[j].x;
-          const dy = particles[i].y - particles[j].y;
-          const distance = Math.sqrt(dx * dx + dy * dy);
-
-          if (distance < 100) {
-            ctx.beginPath();
-            ctx.strokeStyle = darkTheme
-              ? `rgba(100, 149, 237, ${0.15 * (1 - distance / 100)})`
-              : `rgba(100, 149, 237, ${0.05 * (1 - distance / 100)})`;
-            ctx.lineWidth = 0.5;
-            ctx.moveTo(particles[i].x, particles[i].y);
-            ctx.lineTo(particles[j].x, particles[j].y);
-            ctx.stroke();
-            ctx.closePath();
-          }
-        }
+    return () => {
+      if (animationFrameId) {
+        cancelAnimationFrame(animationFrameId);
       }
-
-      requestAnimationFrame(animate);
     };
-
-    animate();
-
-    // Resize handler
-    const handleResize = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    };
-
-    window.addEventListener("resize", handleResize);
-
-    // GSAP animations
-    let roleIndex = 0;
-
-    // Initial animations
-    const tl = gsap.timeline();
-
-    tl.from(titleRef.current, {
-      duration: 1,
-      y: 50,
-      opacity: 0,
-      ease: "power3.out",
-    })
-      .to(subtitleRef.current, {
-        duration: 1,
-        text: roles[roleIndex],
-        ease: "none",
-      })
-      .from(circleRef.current, {
-        duration: 1.5,
-        scale: 0,
-        rotation: 180,
-        opacity: 0,
-        ease: "elastic.out(1, 0.3)",
-        delay: -0.5,
-      })
-      .from(imageContainerRef.current, {
-        duration: 1,
-        y: 50,
-        opacity: 0,
-        ease: "power3.out",
-        delay: -1,
-      });
-
-    // Role rotation
-    const roleRotation = setInterval(() => {
-      roleIndex = (roleIndex + 1) % roles.length;
-      gsap.to(subtitleRef.current, {
-        duration: 1.2,
-        text: roles[roleIndex],
-        ease: "none",
-      });
-    }, 3000);
-
-    // Clean up
-    return () => {
-      window.removeEventListener("resize", handleResize);
-      clearInterval(roleRotation);
-    };
-  }, [darkTheme, roles]); // Added roles to dependency array
-
-  // Interactive mouse follower blob
-  const blobRef = useRef(null);
-
-  useEffect(() => {
-    const blob = blobRef.current;
-
-    const handleMouseMove = (e) => {
-      if (!blob) return;
-
-      const { clientX, clientY } = e;
-      const scrollY = window.scrollY;
-
-      // Only follow mouse if we're in the home section (roughly)
-      if (scrollY > window.innerHeight) return;
-
-      // Calculate position with some lag for smoother movement
-      gsap.to(blob, {
-        x: clientX - blob.offsetWidth / 2,
-        y: clientY - blob.offsetHeight / 2 + scrollY,
-        duration: 0.8,
-        ease: "power2.out",
-      });
-    };
-
-    window.addEventListener("mousemove", handleMouseMove);
-
-    return () => {
-      window.removeEventListener("mousemove", handleMouseMove);
-    };
-  }, []);
+  }, [isOrbiting, angle, speed]);
 
   return (
-    <div className={`home-container ${darkTheme ? "dark" : ""}`}>
-      {/* Background canvas for particle effect */}
-      <canvas id="particle-canvas" className="particle-canvas"></canvas>
+    <motion.div
+      className="tech-icon-wrapper"
+      style={{ transform: `translate(${position.x}px, ${position.y}px)` }}
+    >
+      <div className="tech-icon" data-tooltip={name}>
+        {icon}
+      </div>
+    </motion.div>
+  );
+};
 
-      {/* Interactive blob that follows cursor */}
-      <div className="blob" ref={blobRef}></div>
+const Home = () => {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, threshold: 0.1 });
+  const [isOrbiting, setIsOrbiting] = useState(true);
 
-      <div className="home-content">
+  const handleOrbitToggle = () => setIsOrbiting((prev) => !prev);
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: { staggerChildren: 0.2, delayChildren: 0.3 },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
+  };
+
+  return (
+    <div className="home-section" id="home">
+      <div className="container">
         <motion.div
-          className="text-content"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.8 }}
+          className="home-container"
+          ref={ref}
+          variants={containerVariants}
+          initial="hidden"
+          animate={inView ? "visible" : "hidden"}
         >
-          <h1 ref={titleRef}>
-            Hello, I am{" "}
-            <span className="highlight">Sai Prudhvi Charan Pothumsetty</span>
-          </h1>
-
-          <h2 className="typewriter" ref={subtitleRef}>
-            {/* Content will be dynamically inserted by GSAP */}
-            <span style={{ opacity: 0 }}>.</span>
-          </h2>
-
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.6, duration: 0.8 }}
-          >
-            Passionate about creating beautiful, functional, and user-centered
-            digital experiences. With over 3.5 years of experience in building
-            web applications with modern technologies.
-          </motion.p>
-
-          <motion.div
-            className="cta-buttons"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.8, duration: 0.5 }}
-          >
-            <a href="#contact" className="primary-button">
-              Get in Touch
-            </a>
-            <a href="#projects" className="secondary-button">
-              View Projects
-            </a>
-          </motion.div>
-
-          <motion.div
-            className="social-links"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 1, duration: 0.8 }}
-          >
-            <a
-              href="https://linkedin.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="LinkedIn"
-              className="social-button"
-            >
-              <FaLinkedin />
-            </a>
-            <a
-              href="https://github.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="GitHub"
-              className="social-button"
-            >
-              <FaGithub />
-            </a>
-            <a
-              href="mailto:email@example.com"
-              aria-label="Email"
-              className="social-button"
-            >
-              <FaEnvelope />
-            </a>
-          </motion.div>
-        </motion.div>
-
-        <div className="profile-container" ref={imageContainerRef}>
-          <div className="profile-circle" ref={circleRef}>
-            <div className="hexagon">
-              <div className="hexagon-inner">
-                <img src={profilePic} alt="Sai Prudhvi Charan Pothumsetty" />
+          <motion.div className="home-left" variants={itemVariants}>
+            <p className="intro-text">Hello, I'm</p>
+            <h1 className="name-title">
+              <span>Prudhvi</span>
+              <span>Charan</span>
+            </h1>
+            <h2 className="subtitle">
+              Full Stack Developer & UI/UX Enthusiast
+            </h2>
+            <p className="description">
+              I craft exceptional digital experiences by combining cutting-edge
+              technology with intuitive design. Specializing in modern web
+              applications that are scalable, performant, and user-centric.
+            </p>
+            <div className="stats-container">
+              <div className="stat-item">
+                <span className="stat-number">3+</span>
+                <span className="stat-label">Years Experience</span>
+              </div>
+              <div className="stat-item">
+                <span className="stat-number">50+</span>
+                <span className="stat-label">Projects Completed</span>
+              </div>
+              <div className="stat-item">
+                <span className="stat-number">15+</span>
+                <span className="stat-label">Technologies</span>
               </div>
             </div>
-          </div>
+            <div className="cta-buttons">
+              <a href="#projects" className="btn btn-primary">
+                View My Work <FaArrowDown />
+              </a>
+              <a href="/resume.pdf" download className="btn btn-secondary">
+                Download CV <FaDownload />
+              </a>
+            </div>
+          </motion.div>
 
-          {/* Tech stack orbit */}
-          <div className="tech-orbit">
-            <div className="tech-icon tech-icon-1">
-              <img
-                src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg"
-                alt="React"
-              />
+          <motion.div className="home-right" variants={itemVariants}>
+            <div className="tech-orbit">
+              <div
+                className={`profile-pic-container ${
+                  isOrbiting ? "orbit-active" : ""
+                }`}
+                onClick={handleOrbitToggle}
+              >
+                <img
+                  src={profilePic}
+                  alt="Prudhvi Charan"
+                  className="profile-pic"
+                />
+                <div className="orbit-pulse"></div>
+                <div className="orbit-instruction">
+                  {isOrbiting ? <FaPause /> : <FaPlay />}
+                </div>
+              </div>
+              {techStack.map((tech, index) => (
+                <TechIcon
+                  key={tech.name}
+                  icon={tech.icon}
+                  name={tech.name}
+                  angle={(index / techStack.length) * 360 * (Math.PI / 180)}
+                  speed={tech.speed}
+                  isOrbiting={isOrbiting}
+                />
+              ))}
             </div>
-            <div className="tech-icon tech-icon-2">
-              <img
-                src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg"
-                alt="Node.js"
-              />
-            </div>
-            <div className="tech-icon tech-icon-3">
-              <img
-                src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg"
-                alt="TypeScript"
-              />
-            </div>
-            <div className="tech-icon tech-icon-4">
-              <img
-                src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg"
-                alt="MongoDB"
-              />
-            </div>
-            <div className="tech-icon tech-icon-5">
-              <img
-                src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg"
-                alt="Python"
-              />
-            </div>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
       </div>
     </div>
   );
