@@ -49,6 +49,8 @@ const Navbar = () => {
       className={`navbar ${scrolled ? "scrolled" : ""} ${
         darkTheme ? "dark" : ""
       }`}
+      role="navigation"
+      aria-label="Main Navigation"
     >
       <div className="navbar-container">
         <div className="logo">
@@ -76,21 +78,6 @@ const Navbar = () => {
             className="theme-toggle-visible"
             onClick={toggleTheme}
             aria-label="Toggle theme"
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              marginLeft: "1rem",
-              background: darkTheme
-                ? "rgba(255, 255, 255, 0.2)"
-                : "rgba(0, 0, 0, 0.1)",
-              border: "none",
-              borderRadius: "50%",
-              width: "40px",
-              height: "40px",
-              cursor: "pointer",
-              transition: "all 0.3s ease",
-            }}
           >
             {darkTheme ? <FaSun size={18} /> : <FaMoon size={18} />}
           </button>

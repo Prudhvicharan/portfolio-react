@@ -340,14 +340,6 @@ const Home = () => {
           </div>
         </div>
       </div>
-
-      {/* Scroll indicator */}
-      <div className="scroll-indicator">
-        <div className="mouse">
-          <div className="wheel"></div>
-        </div>
-        <div className="scroll-text">Scroll Down</div>
-      </div>
     </div>
   );
 };

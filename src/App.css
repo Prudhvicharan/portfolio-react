@@ -185,22 +185,26 @@ body.dark-theme section::before {
 
 .highlight {
   color: var(--primary-light);
-  font-weight: 600;
+  font-weight: 700;
   position: relative;
   display: inline-block;
+  z-index: 1;
+  background: none;
 }
 
 .highlight::after {
   content: '';
   position: absolute;
-  bottom: 0;
+  bottom: 0.1em;
   left: 0;
   width: 100%;
-  height: 8px;
-  background: var(--sage-light);
+  height: 0.5em;
+  background: var(--sage-light, #CCE3DE);
   opacity: 0.7;
   border-radius: var(--border-radius);
   z-index: -1;
+  pointer-events: none;
+  transition: background 0.3s;
 }
 
 body.dark-theme .highlight {
@@ -208,8 +212,8 @@ body.dark-theme .highlight {
 }
 
 body.dark-theme .highlight::after {
-  background: var(--sage-deep);
-  opacity: 0.4;
+  background: var(--primary-dark, #FFD166);
+  opacity: 0.3;
 }
 
 .section-title {
@@ -246,4 +250,23 @@ body.dark-theme .section-title {
 
 body.dark-theme .section-icon {
   color: var(--sage-medium);
+}
+
+a:focus, button:focus, input:focus, textarea:focus, .nav-link:focus, .mobile-nav-link:focus, .send-button:focus, .social-link:focus, .scroll-to-top:focus {
+  outline: 2px solid var(--primary-light);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 3px var(--sage-light);
+  transition: box-shadow 0.2s;
+}
+body.dark-theme a:focus,
+body.dark-theme button:focus,
+body.dark-theme input:focus,
+body.dark-theme textarea:focus,
+body.dark-theme .nav-link:focus,
+body.dark-theme .mobile-nav-link:focus,
+body.dark-theme .send-button:focus,
+body.dark-theme .social-link:focus,
+body.dark-theme .scroll-to-top:focus {
+  outline: 2px solid var(--primary-dark);
+  box-shadow: 0 0 0 3px var(--card-surface-dark);
 }

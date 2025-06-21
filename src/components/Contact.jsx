@@ -206,7 +206,12 @@ const Contact = () => {
         </motion.div>
 
         <motion.div className="contact-form-wrapper" variants={itemVariants}>
-          <form className="contact-form" onSubmit={handleSubmit}>
+          <form
+            className="contact-form"
+            onSubmit={handleSubmit}
+            role="form"
+            aria-label="Contact Form"
+          >
             <div
               className={`form-group ${activeField === "name" ? "active" : ""}`}
             >
