@@ -17,6 +17,7 @@
   padding: 2rem;
   box-shadow: var(--card-shadow-light);
   transition: all var(--transition-speed);
+  min-width: 0;
 }
 
 .skills-container.dark .skill-category {
@@ -48,13 +49,15 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 40px;
-  height: 40px;
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
   background-color: rgba(61, 90, 128, 0.1); /* Changed to use deep-blue with opacity */
   color: var(--deep-blue); /* Changed to match primary-light */
   margin-right: 1rem;
   font-size: 1.2rem;
+  min-width: 44px;
+  min-height: 44px;
 }
 
 .skills-container.dark .category-icon {
@@ -121,4 +124,17 @@
 
 .skills-container.dark .skill-progress-fill {
   background: linear-gradient(to right, var(--primary-dark), var(--secondary-dark));
+}
+
+@media (max-width: 768px) {
+  .skills-grid {
+    grid-template-columns: 1fr;
+    gap: 1.2rem;
+  }
+  .skill-category {
+    width: 100%;
+    min-width: 0;
+    margin: 0 auto;
+    padding: 1.2rem;
+  }
 }

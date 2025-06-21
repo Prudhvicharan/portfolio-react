@@ -4,6 +4,7 @@ import { useInView } from "react-intersection-observer";
 import ThemeContext from "../context/ThemeContext";
 import { FaCode, FaGithub, FaExternalLinkAlt } from "react-icons/fa";
 import "./Projects.css";
+import SectionTitle from "./common/SectionTitle";
 // Dummy project data
 const projectsData = [
   {
@@ -101,15 +102,7 @@ const Projects = () => {
 
   return (
     <div className={`projects-container ${darkTheme ? "dark" : ""}`}>
-      <motion.h2
-        className="section-title"
-        initial={{ opacity: 0, y: -20 }}
-        animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: -20 }}
-        transition={{ duration: 0.6 }}
-      >
-        <FaCode className="section-icon" /> Projects
-      </motion.h2>
-
+      <SectionTitle icon={<FaCode />}>Projects</SectionTitle>
       <motion.div
         ref={ref}
         className="projects-grid"

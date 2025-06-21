@@ -4,6 +4,7 @@ import { useInView } from "react-intersection-observer";
 import ThemeContext from "../context/ThemeContext";
 import { FaCode, FaServer, FaDatabase, FaTools } from "react-icons/fa";
 import "./Skills.css";
+import SectionTitle from "./common/SectionTitle";
 // Dummy skills data
 const skillsData = [
   {
@@ -85,15 +86,7 @@ const Skills = () => {
 
   return (
     <div className={`skills-container ${darkTheme ? "dark" : ""}`}>
-      <motion.h2
-        className="section-title"
-        initial={{ opacity: 0, y: -20 }}
-        animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: -20 }}
-        transition={{ duration: 0.6 }}
-      >
-        <FaCode className="section-icon" /> Skills
-      </motion.h2>
-
+      <SectionTitle icon={<FaCode />}>Skills</SectionTitle>
       <motion.div
         ref={ref}
         className="skills-grid"

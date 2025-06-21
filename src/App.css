@@ -1,52 +1,52 @@
 /* ===== Base Styles - Sage Harmony Theme ===== */
 :root {
-  /* Light Theme Colors - Based on your palette */
-  --sage-deep: #6B9080;     /* Deep sage/forest green */
-  --sage-medium: #A4C3B2;   /* Medium sage */
-  --sage-light: #CCE3DE;    /* Light sage/mint */
-  --sage-pale: #EAF4F4;     /* Pale sage/almost white */
-  --cream: #F6FFF8;         /* Cream/off-white */
-  --white: #FFFFFF;         /* Pure white */
+  /* Light Theme Colors */
+  --sage-deep: #4B6A5A;     /* Deeper sage for more contrast */
+  --sage-medium: #A4C3B2;
+  --sage-light: #CCE3DE;
+  --sage-pale: #F2F7F5;     /* Lighter, closer to white for cards */
+  --cream: #F9FAFB;         /* Brighter cream for backgrounds */
+  --white: #FFFFFF;
   
-  /* Complementary Accent Colors */
-  --terra-cotta: #E07A5F;   /* Earthy terra cotta */
-  --deep-blue: #3D5A80;     /* Deep ocean blue */
-  --golden-ochre: #D9C589;  /* Golden ochre/sand */
+  /* Accent Colors */
+  --terra-cotta: #E76F51;   /* More vibrant terra cotta */
+  --deep-blue: #264653;     /* Deeper blue for better contrast */
+  --golden-ochre: #FFD166;  /* Brighter ochre for highlights */
   
   /* Theme Colors Mapped */
   --primary-light: var(--deep-blue);
   --secondary-light: var(--sage-deep);
   --tertiary-light: var(--terra-cotta);
-  --background-light: var(--white);      /* Changed to pure white */
-  --surface-light: var(--cream);         /* Surface now uses cream */
-  --card-surface-light: var(--sage-pale); /* Cards use pale sage */
-  --text-primary-light: #2F3E46;         /* Dark blue-green */
-  --text-secondary-light: #52796F;       /* Muted sage */
+  --background-light: var(--white);
+  --surface-light: var(--cream);
+  --card-surface-light: var(--sage-pale);
+  --text-primary-light: #1A2327;         /* Almost black for best contrast */
+  --text-secondary-light: #4B6A5A;       /* Deeper sage for secondary text */
   --border-light: var(--sage-light);
-  --card-shadow-light: 0 8px 20px rgba(107, 144, 128, 0.08), 0 3px 10px rgba(107, 144, 128, 0.05);
+  --card-shadow-light: 0 8px 20px rgba(76, 90, 128, 0.10), 0 3px 10px rgba(76, 90, 128, 0.06);
   
   /* Dark Theme Colors */
-  --primary-dark: #84A9AC;               /* Bright sage */
-  --secondary-dark: #3D5A80;             /* Deep blue */
-  --tertiary-dark: #E07A5F;              /* Terra cotta */
-  --background-dark: #1A2327;            /* Darker background */
-  --surface-dark: #2F3E46;               /* Deep sage-blue */
-  --card-surface-dark: #354F52;          /* Medium sage-blue */
-  --text-primary-dark: #F6FFF8;          /* Off-white */
-  --text-secondary-dark: #CCE3DE;        /* Light sage */
-  --border-dark: #52796F;                /* Medium sage */
-  --card-shadow-dark: 0 8px 20px rgba(26, 35, 39, 0.4), 0 3px 10px rgba(26, 35, 39, 0.2);
+  --primary-dark: #FFD166;               /* Use ochre as a bright accent */
+  --secondary-dark: #264653;
+  --tertiary-dark: #E76F51;
+  --background-dark: #101418;            /* True black for max contrast */
+  --surface-dark: #1A2327;
+  --card-surface-dark: #222F36;
+  --text-primary-dark: #F9FAFB;          /* Brighter off-white */
+  --text-secondary-dark: #CCE3DE;
+  --border-dark: #52796F;
+  --card-shadow-dark: 0 8px 20px rgba(16, 20, 24, 0.5), 0 3px 10px rgba(16, 20, 24, 0.3);
   
   /* Common Colors */
-  --success: #6B9080;
-  --error: #E07A5F;
-  --warning: #D9C589;
-  --info: #3D5A80;
+  --success: #43AA8B;
+  --error: #E63946;
+  --warning: #FFD166;
+  --info: #264653;
   
   /* Gradient Colors */
-  --gradient-sage: linear-gradient(135deg, #6B9080, #CCE3DE);
-  --gradient-sunset: linear-gradient(135deg, #E07A5F, #D9C589);
-  --gradient-ocean: linear-gradient(135deg, #3D5A80, #84A9AC);
+  --gradient-sage: linear-gradient(135deg, #4B6A5A, #CCE3DE);
+  --gradient-sunset: linear-gradient(135deg, #E76F51, #FFD166);
+  --gradient-ocean: linear-gradient(135deg, #264653, #43AA8B);
   
   /* Dimensions */
   --section-padding: 60px 0;
@@ -111,6 +111,27 @@ body.dark-theme a {
 h1, h2, h3, h4, h5, h6 {
   margin-bottom: 1rem;
   line-height: 1.2;
+}
+
+h1, .section-title {
+  font-size: clamp(2rem, 5vw, 3.5rem);
+}
+
+h2 {
+  font-size: clamp(1.5rem, 3vw, 2.5rem);
+}
+
+h3 {
+  font-size: clamp(1.2rem, 2vw, 1.7rem);
+}
+
+h4, h5, h6 {
+  font-size: clamp(1rem, 1.5vw, 1.2rem);
+}
+
+body, p, .text-content p, .project-description, .education-details, .experience-details, .skill-name, .skill-percentage {
+  font-size: clamp(1rem, 2vw, 1.15rem);
+  line-height: 1.7;
 }
 
 button {

@@ -21,6 +21,7 @@
   flex-direction: column;
   height: 100%;
   cursor: pointer;
+  min-width: 0;
 }
 
 .projects-container.dark .project-card {
@@ -83,6 +84,9 @@
   background-color: var(--white);
   color: var(--text-primary-light);
   transition: all var(--transition-speed);
+  min-width: 44px;
+  min-height: 44px;
+  font-size: 1.2rem;
 }
 
 .project-links a:hover {
@@ -182,6 +186,15 @@
 
 @media (max-width: 576px) {
   .projects-grid {
-      grid-template-columns: 1fr;
+    grid-template-columns: 1fr;
+    gap: 1.2rem;
+  }
+  .project-card {
+    width: 100%;
+    min-width: 0;
+    margin: 0 auto;
+  }
+  .project-info {
+    padding: 1rem;
   }
 }
