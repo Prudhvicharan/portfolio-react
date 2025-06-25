@@ -3,25 +3,62 @@ import { motion } from "framer-motion";
 import { FaLinkedin, FaGithub, FaTwitter } from "react-icons/fa";
 import "./Footer.css";
 
+const navLinks = [
+  { name: "Home", href: "#home" },
+  { name: "Projects", href: "#projects" },
+  { name: "Skills", href: "#skills" },
+  { name: "My Journey", href: "#timeline" },
+  { name: "Contact", href: "#contact" },
+];
+
 const socialLinks = [
-  { icon: <FaLinkedin />, href: "https://linkedin.com/in/prudhvi-charan" },
-  { icon: <FaGithub />, href: "https://github.com/Prudhvicharan" },
-  { icon: <FaTwitter />, href: "https://twitter.com/Prudhvicharan" },
+  {
+    icon: <FaLinkedin />,
+    href: "https://www.linkedin.com/in/prudhvi-charan",
+    label: "LinkedIn",
+  },
+  {
+    icon: <FaGithub />,
+    href: "https://github.com/Prudhvicharan",
+    label: "GitHub",
+  },
+  // {
+  //   icon: <FaTwitter />,
+  //   href: "https://twitter.com/Prudhvicharan",
+  //   label: "Twitter",
+  // },
 ];
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="footer-section">
-      <div className="container footer-container">
+    <footer className="footer-section" id="footer">
+      <div className="footer-container">
         <motion.div
           className="footer-content"
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.7, ease: "easeOut" }}
           viewport={{ once: true }}
         >
+          <div className="footer-brand">
+            <a href="#home" className="footer-logo" aria-label="Go to home">
+              <span className="footer-logo-text">Prudhvi Charan</span>
+              <span className="footer-logo-dot" />
+            </a>
+          </div>
+          <nav className="footer-nav" aria-label="Footer Navigation">
+            <ul>
+              {navLinks.map((link) => (
+                <li key={link.name}>
+                  <a href={link.href} className="footer-nav-link">
+                    {link.name}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </nav>
           <div className="footer-socials">
             {socialLinks.map((social, index) => (
               <motion.a
@@ -29,8 +66,9 @@ const Footer = () => {
                 href={social.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="social-icon"
-                whileHover={{ scale: 1.2, y: -2, color: "var(--primary-500)" }}
+                className="footer-social-icon"
+                aria-label={social.label}
+                whileHover={{ scale: 1.18, y: -3, color: "var(--primary-500)" }}
                 transition={{ duration: 0.2 }}
               >
                 {social.icon}
@@ -38,8 +76,14 @@ const Footer = () => {
             ))}
           </div>
           <div className="footer-text">
-            <p>&copy; {currentYear} Sagar Gundla. All rights reserved.</p>
-            <p>Designed with passion and coded with React.</p>
+            <p>&copy; {currentYear} Prudhvi Charan. All rights reserved.</p>
+            <p>
+              Designed and built with{" "}
+              <span role="img" aria-label="love">
+                ❤️
+              </span>{" "}
+              using React.
+            </p>
           </div>
         </motion.div>
       </div>

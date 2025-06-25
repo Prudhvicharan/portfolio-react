@@ -1,0 +1,48 @@
+/* ===== Section Title Styles ===== */
+
+.section-title {
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 800;
+  color: var(--text-primary);
+  text-align: center;
+  margin: 0 0 var(--space-12) 0;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  position: relative;
+}
+
+.section-title::after {
+  content: '';
+  position: absolute;
+  /* bottom: calc(var(--space-12) * -1); */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 4px;
+  background: var(--gradient-primary);
+  border-radius: var(--radius-full);
+}
+
+@media (max-width: 768px) {
+  .section-title {
+    margin: 0 0 var(--space-8) 0;
+  }
+  
+  .section-title::after {
+    bottom: calc(var(--space-8) * -1);
+    width: 50px;
+    height: 3px;
+  }
+}
+
+@media (max-width: 480px) {
+  .section-title {
+    margin: 0 0 var(--space-6) 0;
+  }
+  
+  .section-title::after {
+    bottom: calc(var(--space-6) * -1);
+    width: 40px;
+    height: 2px;
+  }
+} 

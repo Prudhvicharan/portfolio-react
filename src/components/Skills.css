@@ -8,7 +8,6 @@
 .skills-intro {
   text-align: center;
   max-width: 650px;
-  margin: calc(var(--space-12) * -1) auto var(--space-12) auto;
   font-size: var(--text-lg);
   color: var(--text-secondary);
 }

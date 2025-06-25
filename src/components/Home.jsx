@@ -16,14 +16,14 @@ import profilePic from "../assets/profile-pic.png";
 import "./Home.css";
 
 const techStack = [
-  { name: "JavaScript", icon: <SiJavascript />, speed: 1 },
-  { name: "React", icon: <SiReact />, speed: 1.2 },
-  { name: "Node.js", icon: <SiNodedotjs />, speed: 0.9 },
-  { name: "TypeScript", icon: <SiTypescript />, speed: 1.1 },
-  { name: "HTML5", icon: <SiHtml5 />, speed: 0.8 },
-  { name: "CSS3", icon: <SiCss3 />, speed: 0.9 },
-  { name: "MongoDB", icon: <SiMongodb />, speed: 1.3 },
-  { name: "Express", icon: <SiExpress />, speed: 1 },
+  { name: "JavaScript", icon: <SiJavascript />, speed: 1.0 },
+  { name: "React", icon: <SiReact />, speed: 1.0 },
+  { name: "Node.js", icon: <SiNodedotjs />, speed: 1.0 },
+  { name: "TypeScript", icon: <SiTypescript />, speed: 1.0 },
+  { name: "HTML5", icon: <SiHtml5 />, speed: 1.0 },
+  { name: "CSS3", icon: <SiCss3 />, speed: 1.0 },
+  { name: "MongoDB", icon: <SiMongodb />, speed: 1.0 },
+  { name: "Express", icon: <SiExpress />, speed: 1.0 },
 ];
 
 const TechIcon = ({ icon, name, angle, speed, isOrbiting }) => {
@@ -33,8 +33,8 @@ const TechIcon = ({ icon, name, angle, speed, isOrbiting }) => {
     let animationFrameId;
     const animate = (time) => {
       if (isOrbiting) {
-        const orbitRadius = window.innerWidth > 900 ? 160 : 120;
-        const currentAngle = angle + time * 0.0005 * speed;
+        const orbitRadius = window.innerWidth > 900 ? 140 : 110;
+        const currentAngle = angle + time * 0.0003 * speed;
         setPosition({
           x: Math.cos(currentAngle) * orbitRadius,
           y: Math.sin(currentAngle) * orbitRadius,

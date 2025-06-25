@@ -4,9 +4,6 @@ import { useInView } from "react-intersection-observer";
 import emailjs from "@emailjs/browser";
 import {
   FaEnvelope,
-  FaLinkedin,
-  FaGithub,
-  FaTwitter,
   FaPhone,
   FaMapMarkerAlt,
   FaPaperPlane,
@@ -24,21 +21,15 @@ const contactInfo = [
   {
     icon: <FaPhone />,
     title: "Phone",
-    text: "+1 (123) 456-7890",
-    link: "tel:+11234567890",
+    text: "+1 (816) 762-8317",
+    link: "tel:+18167628317",
   },
   {
     icon: <FaMapMarkerAlt />,
     title: "Location",
-    text: "San Francisco, CA",
-    link: "https://www.google.com/maps/place/San+Francisco,+CA",
+    text: "Kansas City, MO",
+    link: "https://www.google.com/maps/place/Kansas+City,+MO",
   },
-];
-
-const socialLinks = [
-  { icon: <FaLinkedin />, href: "https://linkedin.com" },
-  { icon: <FaGithub />, href: "https://github.com" },
-  { icon: <FaTwitter />, href: "https://twitter.com" },
 ];
 
 const Contact = () => {
@@ -152,19 +143,6 @@ const Contact = () => {
                 </div>
               </a>
             ))}
-            <div className="social-profiles">
-              {socialLinks.map((social, index) => (
-                <a
-                  key={index}
-                  href={social.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="social-icon-link"
-                >
-                  {social.icon}
-                </a>
-              ))}
-            </div>
           </motion.div>
 
           <motion.div
