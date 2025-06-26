@@ -25,11 +25,11 @@ const educationData = [
       "Software Engineering Principles",
       "Research in Distributed Systems",
     ],
-    achievements: [
-      "Dean's List",
-      "Research Assistant",
-      "Graduate Teaching Assistant",
-    ],
+    // achievements: [
+    //   "Dean's List",
+    //   "Research Assistant",
+    //   "Graduate Teaching Assistant",
+    // ],
   },
   {
     institution: "Vellore Institute of Technology",
@@ -44,7 +44,7 @@ const educationData = [
       "Web Technologies & Frameworks",
       "Project Management",
     ],
-    achievements: ["Merit Scholarship", "Technical Lead", "Best Project Award"],
+    // achievements: ["Merit Scholarship", "Technical Lead", "Best Project Award"],
   },
 ];
 
@@ -126,7 +126,7 @@ const EducationItem = ({ education, index }) => {
           </div>
 
           <div className="highlight-group">
-            <h4>Achievements</h4>
+            {/* <h4>Achievements</h4>
             <div className="achievement-tags">
               {education.achievements.map((achievement, idx) => (
                 <motion.span
@@ -143,7 +143,7 @@ const EducationItem = ({ education, index }) => {
                   {achievement}
                 </motion.span>
               ))}
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

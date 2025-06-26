@@ -205,7 +205,7 @@ const Contact = () => {
                 <span className="button-text">
                   {isLoading ? "Sending..." : "Send Message"}
                 </span>
-                <span className="button-icon">
+                <span className="button-icon ml-2 mr-2">
                   <FaPaperPlane />
                 </span>
               </button>

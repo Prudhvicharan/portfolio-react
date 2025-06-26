@@ -211,6 +211,7 @@ body.dark-theme .send-button,
 body.dark-theme .social-button,
 body.dark-theme .scroll-to-top {
   box-shadow: var(--card-shadow-dark);
+  border-radius: var(--radius-2xl);
 }
 
 /* ===== Redesigned Modern Footer Section Styles ===== */

@@ -1,13 +1,15 @@
 import React, { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import {
-  FaBriefcase,
   FaBuilding,
   FaMapMarkerAlt,
   FaCalendarAlt,
-  FaChevronDown,
-  FaChevronUp,
+  FaClock,
+  FaTrophy,
+  FaChartLine,
+  FaUsers,
+  FaCode,
 } from "react-icons/fa";
 import SectionTitle from "./common/SectionTitle";
 import "./Experience.css";
@@ -20,7 +22,7 @@ const workExperiences = [
     location: "Bangalore, KA, India",
     duration: "1.5 years",
     technologies: ["Angular 9", "TypeScript", "Jasmine", "Karma", "CAST Tools"],
-    details: [
+    responsibilities: [
       "Developed and maintained engaging user interfaces for multiple company projects using Angular 9 and TypeScript.",
       "Leveraged Angular to create interactive web applications, delivering exceptional user experiences.",
       "Drove seamless API integrations, fostering robust interactions within the microfrontend architecture.",
@@ -28,9 +30,9 @@ const workExperiences = [
       "Implemented performance optimization strategies using CAST tools, enhancing speed and efficiency.",
     ],
     achievements: [
-      "Improved application performance by 40% through optimization strategies",
-      "Reduced bug reports by 60% through comprehensive testing",
-      "Led 3 major feature implementations successfully",
+      { text: "40% Performance Improvement", icon: "📈" },
+      { text: "60% Bug Reduction", icon: "🐛" },
+      { text: "3 Major Features Led", icon: "🚀" },
     ],
   },
   {
@@ -40,7 +42,7 @@ const workExperiences = [
     location: "Bangalore, KA, India",
     duration: "1.5 years",
     technologies: ["Angular", "JavaScript", "TypeScript", "HTML/CSS"],
-    details: [
+    responsibilities: [
       "Participated in intensive training programs focused on Angular, JavaScript, and TypeScript.",
       "Successfully replicated login and home screens for the company's flagship project, HiLIT.",
       "Skillfully recreated the Capei form page with dynamic and data-intensive forms.",
@@ -48,152 +50,147 @@ const workExperiences = [
       "Collaborated closely with team members, providing innovative solutions.",
     ],
     achievements: [
-      "Completed intensive training program with top performance",
-      "Successfully delivered 4 major UI components",
-      "Received recognition for innovative dashboard design",
+      { text: "Top Training Performance", icon: "🎓" },
+      { text: "4 UI Components Delivered", icon: "⚡" },
+      { text: "Innovation Recognition", icon: "💡" },
     ],
   },
 ];
 
-const ExperienceItem = ({ experience, index }) => {
-  const [isExpanded, setIsExpanded] = useState(false);
+const ExperienceCard = ({ experience, index }) => {
+  const [activeTab, setActiveTab] = useState("tech");
   const [ref, inView] = useInView({
     triggerOnce: true,
-    threshold: 0.3,
+    threshold: 0.2,
   });
 
-  const itemVariants = {
+  const cardVariants = {
     hidden: {
       opacity: 0,
-      x: index % 2 === 0 ? -30 : 30,
-      y: 20,
+      y: 50,
+      scale: 0.95,
     },
     visible: {
       opacity: 1,
-      x: 0,
       y: 0,
+      scale: 1,
       transition: {
-        duration: 0.5,
-        ease: [0.25, 0.46, 0.45, 0.94],
+        duration: 0.6,
+        ease: [0.23, 1, 0.32, 1],
         delay: index * 0.2,
       },
     },
   };
 
-  const contentVariants = {
-    collapsed: {
-      height: 0,
-      opacity: 0,
-      transition: { duration: 0.3, ease: "easeInOut" },
-    },
-    expanded: {
-      height: "auto",
-      opacity: 1,
-      transition: { duration: 0.4, ease: "easeInOut" },
-    },
+  const renderTabContent = () => {
+    switch (activeTab) {
+      case "tech":
+        return (
+          <div className="tech-showcase">
+            {experience.technologies.map((tech, idx) => (
+              <motion.span
+                key={idx}
+                className="tech-badge"
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: idx * 0.1 }}
+              >
+                {tech}
+              </motion.span>
+            ))}
+          </div>
+        );
+      case "responsibilities":
+        return (
+          <div className="responsibilities-grid">
+            {experience.responsibilities.map((resp, idx) => (
+              <motion.div
+                key={idx}
+                className="responsibility-item"
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: idx * 0.1 }}
+              >
+                <p>{resp}</p>
+              </motion.div>
+            ))}
+          </div>
+        );
+      case "achievements":
+        return (
+          <div className="achievements-showcase">
+            {experience.achievements.map((achievement, idx) => (
+              <motion.div
+                key={idx}
+                className="achievement-card"
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: idx * 0.1 }}
+              >
+                <div className="achievement-icon">{achievement.icon}</div>
+                <p className="achievement-text">{achievement.text}</p>
+              </motion.div>
+            ))}
+          </div>
+        );
+      default:
+        return null;
+    }
   };
 
   return (
     <motion.div
       ref={ref}
-      className="experience-item"
-      variants={itemVariants}
+      className="experience-card"
+      variants={cardVariants}
       initial="hidden"
       animate={inView ? "visible" : "hidden"}
     >
-      <div className="experience-marker"></div>
-      <div className="experience-card">
-        <div
-          className="experience-header"
-          onClick={() => setIsExpanded(!isExpanded)}
-        >
-          <div className="experience-icon">
-            <FaBriefcase />
-          </div>
+      <div className="experience-header">
+        <h3 className="experience-title">{experience.title}</h3>
+        <p className="experience-company">
+          <FaBuilding /> {experience.company}
+        </p>
+        <div className="experience-meta">
+          <span>
+            <FaMapMarkerAlt /> {experience.location}
+          </span>
+          <span>
+            <FaCalendarAlt /> {experience.date}
+          </span>
+          <span>
+            <FaClock /> {experience.duration}
+          </span>
+        </div>
+      </div>
 
-          <div className="experience-main-info">
-            <h3 className="experience-title">{experience.title}</h3>
-            <p className="experience-company">
-              <FaBuilding /> {experience.company}
-            </p>
-            <div className="experience-meta">
-              <span>
-                <FaMapMarkerAlt /> {experience.location}
-              </span>
-              <span>
-                <FaCalendarAlt /> {experience.date}
-              </span>
-              <span className="experience-duration">{experience.duration}</span>
-            </div>
-          </div>
-
-          <div className="experience-toggle">
-            {isExpanded ? <FaChevronUp /> : <FaChevronDown />}
-          </div>
+      <div className="experience-body">
+        <div className="experience-tabs">
+          <button
+            className={`tab-button ${activeTab === "tech" ? "active" : ""}`}
+            onClick={() => setActiveTab("tech")}
+          >
+            <FaCode /> Tech Stack
+          </button>
+          <button
+            className={`tab-button ${
+              activeTab === "responsibilities" ? "active" : ""
+            }`}
+            onClick={() => setActiveTab("responsibilities")}
+          >
+            <FaUsers /> Responsibilities
+          </button>
+          <button
+            className={`tab-button ${
+              activeTab === "achievements" ? "active" : ""
+            }`}
+            onClick={() => setActiveTab("achievements")}
+          >
+            <FaTrophy /> Achievements
+          </button>
         </div>
 
-        <AnimatePresence>
-          {isExpanded && (
-            <motion.div
-              className="experience-details"
-              variants={contentVariants}
-              initial="collapsed"
-              animate="expanded"
-              exit="collapsed"
-            >
-              <div className="experience-section">
-                <h4 className="experience-section-title">Technologies Used</h4>
-                <div className="tech-stack">
-                  {experience.technologies.map((tech, idx) => (
-                    <motion.span
-                      key={idx}
-                      className="tech-chip"
-                      initial={{ opacity: 0, scale: 0.8 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      transition={{ delay: idx * 0.1 }}
-                    >
-                      {tech}
-                    </motion.span>
-                  ))}
-                </div>
-              </div>
-
-              <div className="experience-section">
-                <h4 className="experience-section-title">
-                  Key Responsibilities
-                </h4>
-                <ul className="responsibilities-list">
-                  {experience.details.map((detail, idx) => (
-                    <motion.li
-                      key={idx}
-                      initial={{ opacity: 0, x: -15 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: idx * 0.1 }}
-                    >
-                      {detail}
-                    </motion.li>
-                  ))}
-                </ul>
-              </div>
-
-              <div className="experience-section">
-                <h4 className="experience-section-title">Key Achievements</h4>
-                <ul className="achievements-list">
-                  {experience.achievements.map((achievement, idx) => (
-                    <motion.li
-                      key={idx}
-                      initial={{ opacity: 0, x: -15 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: idx * 0.1 }}
-                    >
-                      {achievement}
-                    </motion.li>
-                  ))}
-                </ul>
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
+        <div className="tab-content">{renderTabContent()}</div>
       </div>
     </motion.div>
   );
@@ -210,11 +207,48 @@ const Experience = () => {
           exceptional user experiences.
         </p>
 
-        <div className="experience-timeline">
+        <div className="experience-grid">
           {workExperiences.map((experience, index) => (
-            <ExperienceItem key={index} experience={experience} index={index} />
+            <ExperienceCard key={index} experience={experience} index={index} />
           ))}
         </div>
+
+        <motion.div
+          className="experience-summary"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.4 }}
+          viewport={{ once: true }}
+        >
+          <h3
+            style={{
+              fontSize: "var(--text-2xl)",
+              fontWeight: 700,
+              color: "var(--text-primary)",
+              marginBottom: "var(--space-4)",
+            }}
+          >
+            Career Impact
+          </h3>
+          <div className="summary-stats">
+            <div className="stat-card">
+              <span className="stat-number">3+</span>
+              <span className="stat-label">Years Experience</span>
+            </div>
+            <div className="stat-card">
+              <span className="stat-number">10+</span>
+              <span className="stat-label">Projects Delivered</span>
+            </div>
+            <div className="stat-card">
+              <span className="stat-number">5+</span>
+              <span className="stat-label">Technologies Mastered</span>
+            </div>
+            <div className="stat-card">
+              <span className="stat-number">100%</span>
+              <span className="stat-label">Success Rate</span>
+            </div>
+          </div>
+        </motion.div>
       </div>
     </section>
   );

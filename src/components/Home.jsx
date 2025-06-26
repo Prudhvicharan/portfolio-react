@@ -13,6 +13,7 @@ import {
   SiTypescript,
 } from "react-icons/si";
 import profilePic from "../assets/profile-pic.png";
+import resumePdf from "../assets/prudhvi_charan_resume.pdf";
 import "./Home.css";
 
 const techStack = [
@@ -66,11 +67,7 @@ const TechOrbit = ({ isOrbiting }) => {
         className={`profile-pic-container ${isOrbiting ? "orbit-active" : ""}`}
         style={{ zIndex: 2 }}
       >
-        <img
-          src={profilePic}
-          alt="Prudhvi Charan"
-          className="profile-pic"
-        />
+        <img src={profilePic} alt="Prudhvi Charan" className="profile-pic" />
         <div className="orbit-pulse"></div>
         <div className="orbit-instruction">
           {isOrbiting ? <FaPause /> : <FaPlay />}
@@ -86,7 +83,7 @@ const TechOrbit = ({ isOrbiting }) => {
           width: 0,
           height: 0,
           zIndex: 3,
-          transform: `translate(-50%, -50%) rotate(${angle}rad)`
+          transform: `translate(-50%, -50%) rotate(${angle}rad)`,
         }}
       >
         {techStack.map((tech, i) => {
@@ -159,25 +156,15 @@ const Home = () => {
               technology with intuitive design. Specializing in modern web
               applications that are scalable, performant, and user-centric.
             </p>
-            {/* <div className="stats-container">
-              <div className="stat-item">
-                <span className="stat-number">3+</span>
-                <span className="stat-label">Years Experience</span>
-              </div>
-              <div className="stat-item">
-                <span className="stat-number">50+</span>
-                <span className="stat-label">Projects Completed</span>
-              </div>
-              <div className="stat-item">
-                <span className="stat-number">15+</span>
-                <span className="stat-label">Technologies</span>
-              </div>
-            </div> */}
             <div className="cta-buttons">
               <a href="#projects" className="btn btn-primary">
                 View My Work <FaArrowDown />
               </a>
-              <a href="/resume.pdf" download className="btn btn-secondary">
+              <a
+                href={resumePdf}
+                download="Prudhvi_Charan_Resume.pdf"
+                className="btn btn-secondary"
+              >
                 Download CV <FaDownload />
               </a>
             </div>

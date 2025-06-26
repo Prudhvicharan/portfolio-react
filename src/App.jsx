@@ -12,14 +12,22 @@ import Footer from "./components/Footer";
 import ScrollToTop from "./components/ScrollToTop";
 
 function App() {
-  const [theme, setTheme] = useState("light-theme");
+  // Initialize theme from localStorage or default to dark
+  const [theme, setTheme] = useState(() => {
+    const savedTheme = localStorage.getItem("portfolio-theme");
+    return savedTheme || "dark-theme"; // Default to dark theme
+  });
 
   const toggleTheme = () => {
-    setTheme(theme === "dark-theme" ? "light-theme" : "dark-theme");
+    const newTheme = theme === "dark-theme" ? "light-theme" : "dark-theme";
+    setTheme(newTheme);
+    localStorage.setItem("portfolio-theme", newTheme); // Persist theme choice
   };
 
   useEffect(() => {
     document.body.className = theme;
+    // Also save to localStorage whenever theme changes
+    localStorage.setItem("portfolio-theme", theme);
   }, [theme]);
 
   return (
