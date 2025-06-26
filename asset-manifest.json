@@ -1,17 +1,18 @@
 {
   "files": {
-    "main.css": "/portfolio-react/static/css/main.52d0bdf8.css",
-    "main.js": "/portfolio-react/static/js/main.64344ace.js",
+    "main.css": "/portfolio-react/static/css/main.ef68d705.css",
+    "main.js": "/portfolio-react/static/js/main.fcaaa897.js",
     "static/media/profile-pic.png": "/portfolio-react/static/media/profile-pic.0bccc0bf90e2c4ef0b49.png",
     "static/media/project-1.png": "/portfolio-react/static/media/project-1.a81d191d6c5af4d71981.png",
     "static/media/project-3.png": "/portfolio-react/static/media/project-3.762fc362f446b1614603.png",
     "static/media/project-2.png": "/portfolio-react/static/media/project-2.0991efbf15f653bdac20.png",
+    "static/media/prudhvi_charan_resume.pdf": "/portfolio-react/static/media/prudhvi_charan_resume.d83af53295fd5d9d8953.pdf",
     "index.html": "/portfolio-react/index.html",
-    "main.52d0bdf8.css.map": "/portfolio-react/static/css/main.52d0bdf8.css.map",
-    "main.64344ace.js.map": "/portfolio-react/static/js/main.64344ace.js.map"
+    "main.ef68d705.css.map": "/portfolio-react/static/css/main.ef68d705.css.map",
+    "main.fcaaa897.js.map": "/portfolio-react/static/js/main.fcaaa897.js.map"
   },
   "entrypoints": [
-    "static/css/main.52d0bdf8.css",
-    "static/js/main.64344ace.js"
+    "static/css/main.ef68d705.css",
+    "static/js/main.fcaaa897.js"
   ]
 }
