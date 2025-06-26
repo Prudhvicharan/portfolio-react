@@ -2,7 +2,7 @@
   "name": "portfolio",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://prudhvicharan.github.io/portfolio-react",
+  "homepage": "https://react.prudhvicharan.com",
   "dependencies": {
     "@emailjs/browser": "^4.4.1",
     "@heroicons/react": "^1.0.6",
