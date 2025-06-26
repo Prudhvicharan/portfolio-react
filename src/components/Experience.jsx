@@ -8,8 +8,6 @@ import {
   FaCalendarAlt,
   FaChevronDown,
   FaChevronUp,
-  FaRocket,
-  FaTrophy,
 } from "react-icons/fa";
 import SectionTitle from "./common/SectionTitle";
 import "./Experience.css";
@@ -25,9 +23,9 @@ const workExperiences = [
     details: [
       "Developed and maintained engaging user interfaces for multiple company projects using Angular 9 and TypeScript.",
       "Leveraged Angular to create interactive web applications, delivering exceptional user experiences.",
-      "Drove seamless API integrations, fostering robust interactions within the microfrontend architecture, ensuring the projects' responsiveness and cohesion.",
-      "Contributed to the development process through rigorous unit testing using Jasmine and Karma, guaranteeing the reliability and stability of the applications.",
-      "Implemented performance optimization strategies using CAST tools, significantly enhancing the speed and efficiency of project execution.",
+      "Drove seamless API integrations, fostering robust interactions within the microfrontend architecture.",
+      "Contributed to development through rigorous unit testing using Jasmine and Karma.",
+      "Implemented performance optimization strategies using CAST tools, enhancing speed and efficiency.",
     ],
     achievements: [
       "Improved application performance by 40% through optimization strategies",
@@ -43,11 +41,11 @@ const workExperiences = [
     duration: "1.5 years",
     technologies: ["Angular", "JavaScript", "TypeScript", "HTML/CSS"],
     details: [
-      "Participated in intensive training programs focused on Angular, JavaScript, and TypeScript, enhancing my proficiency in these technologies.",
-      "Successfully replicated the login and home screens for the company's flagship project, HiLIT, showcasing my ability to work with complex and critical components of the application.",
-      "Skillfully recreated the Capei form page, characterized by dynamic and data-intensive forms, demonstrating my adaptability and capacity to handle diverse tasks.",
-      "Pioneered the development of a new dashboard screen, responsible for displaying critical data not previously implemented by the company.",
-      "Collaborated closely with team members, providing valuable insights and innovative solutions, contributing to the overall project's success.",
+      "Participated in intensive training programs focused on Angular, JavaScript, and TypeScript.",
+      "Successfully replicated login and home screens for the company's flagship project, HiLIT.",
+      "Skillfully recreated the Capei form page with dynamic and data-intensive forms.",
+      "Pioneered development of a new dashboard screen for displaying critical data.",
+      "Collaborated closely with team members, providing innovative solutions.",
     ],
     achievements: [
       "Completed intensive training program with top performance",
@@ -57,26 +55,26 @@ const workExperiences = [
   },
 ];
 
-const ExperienceCard = ({ experience, index }) => {
+const ExperienceItem = ({ experience, index }) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const [ref, inView] = useInView({
     triggerOnce: true,
     threshold: 0.3,
   });
 
-  const cardVariants = {
+  const itemVariants = {
     hidden: {
       opacity: 0,
-      x: index % 2 === 0 ? -50 : 50,
-      scale: 0.95,
+      x: index % 2 === 0 ? -30 : 30,
+      y: 20,
     },
     visible: {
       opacity: 1,
       x: 0,
-      scale: 1,
+      y: 0,
       transition: {
-        duration: 0.6,
-        ease: "easeOut",
+        duration: 0.5,
+        ease: [0.25, 0.46, 0.45, 0.94],
         delay: index * 0.2,
       },
     },
@@ -98,17 +96,13 @@ const ExperienceCard = ({ experience, index }) => {
   return (
     <motion.div
       ref={ref}
-      className="experience-card"
-      variants={cardVariants}
+      className="experience-item"
+      variants={itemVariants}
       initial="hidden"
       animate={inView ? "visible" : "hidden"}
     >
-      <div className="experience-timeline">
-        <div className="timeline-dot"></div>
-        <div className="timeline-line"></div>
-      </div>
-
-      <div className="experience-content">
+      <div className="experience-marker"></div>
+      <div className="experience-card">
         <div
           className="experience-header"
           onClick={() => setIsExpanded(!isExpanded)}
@@ -119,14 +113,14 @@ const ExperienceCard = ({ experience, index }) => {
 
           <div className="experience-main-info">
             <h3 className="experience-title">{experience.title}</h3>
-            <div className="experience-company">
+            <p className="experience-company">
               <FaBuilding /> {experience.company}
-            </div>
+            </p>
             <div className="experience-meta">
-              <span className="experience-location">
+              <span>
                 <FaMapMarkerAlt /> {experience.location}
               </span>
-              <span className="experience-date">
+              <span>
                 <FaCalendarAlt /> {experience.date}
               </span>
               <span className="experience-duration">{experience.duration}</span>
@@ -147,13 +141,13 @@ const ExperienceCard = ({ experience, index }) => {
               animate="expanded"
               exit="collapsed"
             >
-              <div className="experience-technologies">
-                <h4>Technologies Used</h4>
-                <div className="tech-tags">
+              <div className="experience-section">
+                <h4 className="experience-section-title">Technologies Used</h4>
+                <div className="tech-stack">
                   {experience.technologies.map((tech, idx) => (
                     <motion.span
                       key={idx}
-                      className="tech-tag"
+                      className="tech-chip"
                       initial={{ opacity: 0, scale: 0.8 }}
                       animate={{ opacity: 1, scale: 1 }}
                       transition={{ delay: idx * 0.1 }}
@@ -164,13 +158,15 @@ const ExperienceCard = ({ experience, index }) => {
                 </div>
               </div>
 
-              <div className="experience-responsibilities">
-                <h4>Key Responsibilities</h4>
-                <ul>
+              <div className="experience-section">
+                <h4 className="experience-section-title">
+                  Key Responsibilities
+                </h4>
+                <ul className="responsibilities-list">
                   {experience.details.map((detail, idx) => (
                     <motion.li
                       key={idx}
-                      initial={{ opacity: 0, x: -20 }}
+                      initial={{ opacity: 0, x: -15 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: idx * 0.1 }}
                     >
@@ -180,16 +176,13 @@ const ExperienceCard = ({ experience, index }) => {
                 </ul>
               </div>
 
-              <div className="experience-achievements">
-                <h4>
-                  <FaTrophy /> Key Achievements
-                </h4>
-                <ul>
+              <div className="experience-section">
+                <h4 className="experience-section-title">Key Achievements</h4>
+                <ul className="achievements-list">
                   {experience.achievements.map((achievement, idx) => (
                     <motion.li
                       key={idx}
-                      className="achievement-item"
-                      initial={{ opacity: 0, x: -20 }}
+                      initial={{ opacity: 0, x: -15 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: idx * 0.1 }}
                     >
@@ -217,38 +210,11 @@ const Experience = () => {
           exceptional user experiences.
         </p>
 
-        <div className="experience-timeline-container">
+        <div className="experience-timeline">
           {workExperiences.map((experience, index) => (
-            <ExperienceCard key={index} experience={experience} index={index} />
+            <ExperienceItem key={index} experience={experience} index={index} />
           ))}
         </div>
-
-        <motion.div
-          className="experience-summary"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.4 }}
-          viewport={{ once: true }}
-        >
-          <div className="summary-card">
-            <FaRocket className="summary-icon" />
-            <h3>Career Highlights</h3>
-            <div className="summary-stats">
-              <div className="summary-stat">
-                <span className="stat-number">3+</span>
-                <span className="stat-label">Years Experience</span>
-              </div>
-              <div className="summary-stat">
-                <span className="stat-number">10+</span>
-                <span className="stat-label">Projects Delivered</span>
-              </div>
-              <div className="summary-stat">
-                <span className="stat-number">5+</span>
-                <span className="stat-label">Technologies Mastered</span>
-              </div>
-            </div>
-          </div>
-        </motion.div>
       </div>
     </section>
   );

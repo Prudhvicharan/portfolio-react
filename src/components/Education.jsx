@@ -48,41 +48,26 @@ const educationData = [
   },
 ];
 
-const EducationCard = ({ education, index }) => {
+const EducationItem = ({ education, index }) => {
   const [ref, inView] = useInView({
     triggerOnce: true,
     threshold: 0.3,
   });
 
-  const cardVariants = {
+  const itemVariants = {
     hidden: {
       opacity: 0,
-      y: 50,
-      scale: 0.9,
-      rotateX: -15,
+      x: index % 2 === 0 ? -30 : 30,
+      y: 20,
     },
     visible: {
       opacity: 1,
+      x: 0,
       y: 0,
-      scale: 1,
-      rotateX: 0,
       transition: {
-        duration: 0.8,
-        ease: "easeOut",
+        duration: 0.5,
+        ease: [0.25, 0.46, 0.45, 0.94],
         delay: index * 0.2,
-      },
-    },
-  };
-
-  const iconVariants = {
-    hidden: { scale: 0, rotate: -180 },
-    visible: {
-      scale: 1,
-      rotate: 0,
-      transition: {
-        duration: 0.6,
-        ease: "backOut",
-        delay: index * 0.2 + 0.3,
       },
     },
   };
@@ -90,78 +75,78 @@ const EducationCard = ({ education, index }) => {
   return (
     <motion.div
       ref={ref}
-      className="education-card"
-      variants={cardVariants}
+      className="education-item"
+      variants={itemVariants}
       initial="hidden"
       animate={inView ? "visible" : "hidden"}
     >
-      <div className="education-card-header">
-        <motion.div
-          className="education-icon"
-          variants={iconVariants}
-          initial="hidden"
-          animate={inView ? "visible" : "hidden"}
-        >
-          <FaGraduationCap />
-        </motion.div>
-        <div className="education-header-content">
-          <h3 className="education-degree">{education.degree}</h3>
-          <div className="education-meta">
-            <span className="education-institution">
+      <div className="education-marker"></div>
+      <div className="education-card">
+        <div className="education-header">
+          <div className="education-icon">
+            <FaGraduationCap />
+          </div>
+          <div className="education-content">
+            <h3 className="education-title">{education.degree}</h3>
+            <p className="education-institution">
               <FaUniversity /> {education.institution}
-            </span>
-            <span className="education-location">
-              <FaMapMarkerAlt /> {education.location}
-            </span>
-            <span className="education-date">
-              <FaCalendarAlt /> {education.startDate} - {education.endDate}
-            </span>
+            </p>
           </div>
         </div>
-        <div className="education-gpa">
-          <FaStar />
-          <span>{education.gpa}</span>
-        </div>
-      </div>
 
-      <div className="education-content">
+        <div className="education-meta">
+          <span>
+            <FaMapMarkerAlt /> {education.location}
+          </span>
+          <span>
+            <FaCalendarAlt /> {education.startDate} - {education.endDate}
+          </span>
+          <span className="education-gpa">
+            <FaStar /> GPA: {education.gpa}
+          </span>
+        </div>
+
         <div className="education-highlights">
-          <h4>Key Highlights</h4>
-          <ul>
-            {education.highlights.map((highlight, idx) => (
-              <motion.li
-                key={idx}
-                initial={{ opacity: 0, x: -20 }}
-                animate={inView ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
-                transition={{ delay: index * 0.2 + 0.4 + idx * 0.1 }}
-              >
-                {highlight}
-              </motion.li>
-            ))}
-          </ul>
-        </div>
+          <div className="highlight-group">
+            <h4>Key Highlights</h4>
+            <ul className="highlight-list">
+              {education.highlights.map((highlight, idx) => (
+                <motion.li
+                  key={idx}
+                  initial={{ opacity: 0, x: -10 }}
+                  animate={
+                    inView ? { opacity: 1, x: 0 } : { opacity: 0, x: -10 }
+                  }
+                  transition={{ delay: index * 0.2 + 0.3 + idx * 0.1 }}
+                >
+                  {highlight}
+                </motion.li>
+              ))}
+            </ul>
+          </div>
 
-        <div className="education-achievements">
-          <h4>Achievements</h4>
-          <div className="achievement-tags">
-            {education.achievements.map((achievement, idx) => (
-              <motion.span
-                key={idx}
-                className="achievement-tag"
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={
-                  inView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }
-                }
-                transition={{ delay: index * 0.2 + 0.6 + idx * 0.1 }}
-              >
-                {achievement}
-              </motion.span>
-            ))}
+          <div className="highlight-group">
+            <h4>Achievements</h4>
+            <div className="achievement-tags">
+              {education.achievements.map((achievement, idx) => (
+                <motion.span
+                  key={idx}
+                  className="achievement-tag"
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={
+                    inView
+                      ? { opacity: 1, scale: 1 }
+                      : { opacity: 0, scale: 0.8 }
+                  }
+                  transition={{ delay: index * 0.2 + 0.5 + idx * 0.1 }}
+                >
+                  {achievement}
+                </motion.span>
+              ))}
+            </div>
           </div>
         </div>
       </div>
-
-      <div className="education-card-bg"></div>
     </motion.div>
   );
 };
@@ -176,36 +161,11 @@ const Education = () => {
           continuous learning, shaping me into a well-rounded software engineer.
         </p>
 
-        <div className="education-grid">
+        <div className="education-timeline">
           {educationData.map((education, index) => (
-            <EducationCard key={index} education={education} index={index} />
+            <EducationItem key={index} education={education} index={index} />
           ))}
         </div>
-
-        <motion.div
-          className="education-stats"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.4 }}
-          viewport={{ once: true }}
-        >
-          <div className="stat-item">
-            <span className="stat-number">8+</span>
-            <span className="stat-label">Years of Study</span>
-          </div>
-          <div className="stat-item">
-            <span className="stat-number">3.8</span>
-            <span className="stat-label">GPA (Masters)</span>
-          </div>
-          <div className="stat-item">
-            <span className="stat-number">8.67</span>
-            <span className="stat-label">GPA (Bachelors)</span>
-          </div>
-          <div className="stat-item">
-            <span className="stat-number">6+</span>
-            <span className="stat-label">Achievements</span>
-          </div>
-        </motion.div>
       </div>
     </section>
   );
