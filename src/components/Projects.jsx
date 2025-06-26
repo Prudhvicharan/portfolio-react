@@ -5,10 +5,9 @@ import SectionTitle from "./common/SectionTitle";
 import "./Projects.css";
 // NOTE: Please add placeholder images to src/assets/ with these names
 // or update the import paths to your actual project images.
-import placeholder1 from "../assets/project-placeholder-1.png";
-import placeholder2 from "../assets/project-placeholder-2.png";
-import placeholder3 from "../assets/project-placeholder-3.png";
-import placeholder4 from "../assets/project-placeholder-4.png";
+import placeholder1 from "../assets/project-1.png";
+import placeholder2 from "../assets/project-2.png";
+import placeholder3 from "../assets/project-3.png";
 
 const projectsData = [
   {
@@ -26,47 +25,29 @@ const projectsData = [
   },
   {
     image: placeholder2,
-    title: "Income Classification Using Adult Census Data",
-    subtitle: "Data mining project to identify high-income individuals.",
+    title: "LaunchMasters",
+    subtitle: "College application management platform for students.",
     description:
-      "Preprocessed and analyzed the Adult Census dataset. Implemented multiple classification models including Random Forest, XGBoost, and Logistic Regression to predict income levels.",
+      "Comprehensive web application helping students manage their college journey from discovery to decision. Features college search across 7,000+ US institutions, deadline tracking, application progress monitoring, and smart reminders with analytics dashboard.",
     stats: [
-      { value: "85%", label: "Prediction Accuracy" },
-      { value: "Flask", label: "Web Interface" },
-      { value: "Top 5", label: "Factors Identified" },
+      { value: "7,000+", label: "College Database" },
+      { value: "Real-time", label: "API Integration" },
+      { value: "Smart", label: "Notifications" },
     ],
-    technologies: [
-      "Data mining",
-      "Machine learning",
-      "Classification",
-      "Flask",
-    ],
+    technologies: ["React", "TypeScript", "Supabase", "Tailwind CSS"],
   },
   {
     image: placeholder3,
-    title: "Hospital Management System",
-    subtitle: "Fully functional website for admins, doctors, and patients.",
+    title: "Career-Axis",
+    subtitle: "Career guidance and counseling platform.",
     description:
-      "Developed a comprehensive web-based system with role-based access for admins, doctors, and patients, implementing secure user authentication using JWT.",
+      "Interactive career guidance system built with React, providing personalized career recommendations, skills assessment, and educational pathway suggestions to help users make informed professional decisions.",
     stats: [
-      { value: "3", label: "User Roles" },
-      { value: "JWT", label: "Authentication" },
-      { value: "MySQL", label: "Database" },
+      { value: "Interactive", label: "Assessments" },
+      { value: "Personalized", label: "Recommendations" },
+      { value: "React", label: "Framework" },
     ],
-    technologies: ["Web development", "Database", "UI Design", "JWT", "MySQL"],
-  },
-  {
-    image: placeholder4,
-    title: "Preventing Websites from SQL Injections",
-    subtitle: "Developed secure login pages and e-commerce website.",
-    description:
-      "Created and secured login pages by implementing MD5 and SHA algorithms to hash passwords and prevent unauthorized access, and validated user inputs to prevent malicious queries.",
-    stats: [
-      { value: "SHA/MD5", label: "Hashing" },
-      { value: "Input", label: "Validation" },
-      { value: "Secure", label: "E-commerce" },
-    ],
-    technologies: ["Security", "Web Development", "Database Protection"],
+    technologies: ["React", "JavaScript", "Career Analytics", "UI/UX"],
   },
 ];
 

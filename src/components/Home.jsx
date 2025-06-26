@@ -16,58 +16,102 @@ import profilePic from "../assets/profile-pic.png";
 import "./Home.css";
 
 const techStack = [
-  { name: "JavaScript", icon: <SiJavascript />, speed: 1.0 },
-  { name: "React", icon: <SiReact />, speed: 1.0 },
-  { name: "Node.js", icon: <SiNodedotjs />, speed: 1.0 },
-  { name: "TypeScript", icon: <SiTypescript />, speed: 1.0 },
-  { name: "HTML5", icon: <SiHtml5 />, speed: 1.0 },
-  { name: "CSS3", icon: <SiCss3 />, speed: 1.0 },
-  { name: "MongoDB", icon: <SiMongodb />, speed: 1.0 },
-  { name: "Express", icon: <SiExpress />, speed: 1.0 },
+  { name: "JavaScript", icon: <SiJavascript /> },
+  { name: "React", icon: <SiReact /> },
+  { name: "Node.js", icon: <SiNodedotjs /> },
+  { name: "TypeScript", icon: <SiTypescript /> },
+  { name: "HTML5", icon: <SiHtml5 /> },
+  { name: "CSS3", icon: <SiCss3 /> },
+  { name: "MongoDB", icon: <SiMongodb /> },
+  { name: "Express", icon: <SiExpress /> },
 ];
 
-const TechIcon = ({ icon, name, angle, speed, isOrbiting }) => {
-  const [position, setPosition] = useState({ x: 0, y: 0 });
+const getOrbitRadius = () => {
+  if (window.innerWidth > 1200) return 180;
+  if (window.innerWidth > 900) return 130;
+  if (window.innerWidth > 600) return 90;
+  return 60;
+};
+
+const TechOrbit = ({ isOrbiting }) => {
+  const [angle, setAngle] = useState(0);
+  const [radius, setRadius] = useState(getOrbitRadius());
+
+  useEffect(() => {
+    const handleResize = () => setRadius(getOrbitRadius());
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   useEffect(() => {
     let animationFrameId;
-    const animate = (time) => {
+    const animate = () => {
       if (isOrbiting) {
-        const orbitRadius = window.innerWidth > 900 ? 140 : 110;
-        const currentAngle = angle + time * 0.0003 * speed;
-        setPosition({
-          x: Math.cos(currentAngle) * orbitRadius,
-          y: Math.sin(currentAngle) * orbitRadius,
-        });
+        setAngle((prev) => prev + 0.008);
         animationFrameId = requestAnimationFrame(animate);
       }
     };
-
     if (isOrbiting) {
       animationFrameId = requestAnimationFrame(animate);
-    } else {
-      setPosition({ x: 0, y: 0 });
-      if (animationFrameId) {
-        cancelAnimationFrame(animationFrameId);
-      }
     }
-
     return () => {
-      if (animationFrameId) {
-        cancelAnimationFrame(animationFrameId);
-      }
+      if (animationFrameId) cancelAnimationFrame(animationFrameId);
     };
-  }, [isOrbiting, angle, speed]);
+  }, [isOrbiting]);
 
   return (
-    <motion.div
-      className="tech-icon-wrapper"
-      style={{ transform: `translate(${position.x}px, ${position.y}px)` }}
-    >
-      <div className="tech-icon" data-tooltip={name}>
-        {icon}
+    <div className="tech-orbit">
+      <div className="tech-orbit-dotted"></div>
+      <div
+        className={`profile-pic-container ${isOrbiting ? "orbit-active" : ""}`}
+        style={{ zIndex: 2 }}
+      >
+        <img
+          src={profilePic}
+          alt="Prudhvi Charan"
+          className="profile-pic"
+        />
+        <div className="orbit-pulse"></div>
+        <div className="orbit-instruction">
+          {isOrbiting ? <FaPause /> : <FaPlay />}
+        </div>
       </div>
-    </motion.div>
+      {/* Orbiting icons */}
+      <div
+        className="orbit-icons-wrapper"
+        style={{
+          position: "absolute",
+          top: "50%",
+          left: "50%",
+          width: 0,
+          height: 0,
+          zIndex: 3,
+          transform: `translate(-50%, -50%) rotate(${angle}rad)`
+        }}
+      >
+        {techStack.map((tech, i) => {
+          const iconAngle = (i / techStack.length) * 2 * Math.PI;
+          const x = Math.cos(iconAngle) * radius;
+          const y = Math.sin(iconAngle) * radius;
+          return (
+            <div
+              key={tech.name}
+              className="tech-icon-wrapper"
+              style={{
+                position: "absolute",
+                left: `${x}px`,
+                top: `${y}px`,
+                transform: "translate(-50%, -50%)",
+              }}
+            >
+              <div className="tech-icon" data-tooltip={tech.name}>
+                {tech.icon}
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </div>
   );
 };
 
@@ -115,7 +159,7 @@ const Home = () => {
               technology with intuitive design. Specializing in modern web
               applications that are scalable, performant, and user-centric.
             </p>
-            <div className="stats-container">
+            {/* <div className="stats-container">
               <div className="stat-item">
                 <span className="stat-number">3+</span>
                 <span className="stat-label">Years Experience</span>
@@ -128,7 +172,7 @@ const Home = () => {
                 <span className="stat-number">15+</span>
                 <span className="stat-label">Technologies</span>
               </div>
-            </div>
+            </div> */}
             <div className="cta-buttons">
               <a href="#projects" className="btn btn-primary">
                 View My Work <FaArrowDown />
@@ -140,33 +184,8 @@ const Home = () => {
           </motion.div>
 
           <motion.div className="home-right" variants={itemVariants}>
-            <div className="tech-orbit">
-              <div
-                className={`profile-pic-container ${
-                  isOrbiting ? "orbit-active" : ""
-                }`}
-                onClick={handleOrbitToggle}
-              >
-                <img
-                  src={profilePic}
-                  alt="Prudhvi Charan"
-                  className="profile-pic"
-                />
-                <div className="orbit-pulse"></div>
-                <div className="orbit-instruction">
-                  {isOrbiting ? <FaPause /> : <FaPlay />}
-                </div>
-              </div>
-              {techStack.map((tech, index) => (
-                <TechIcon
-                  key={tech.name}
-                  icon={tech.icon}
-                  name={tech.name}
-                  angle={(index / techStack.length) * 360 * (Math.PI / 180)}
-                  speed={tech.speed}
-                  isOrbiting={isOrbiting}
-                />
-              ))}
+            <div onClick={handleOrbitToggle} style={{ cursor: "pointer" }}>
+              <TechOrbit isOrbiting={isOrbiting} />
             </div>
           </motion.div>
         </motion.div>

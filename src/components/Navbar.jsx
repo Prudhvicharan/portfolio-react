@@ -45,7 +45,8 @@ const Navbar = ({ theme, toggleTheme }) => {
     { name: "Home", to: "home" },
     { name: "Projects", to: "projects" },
     { name: "Skills", to: "skills" },
-    { name: "My Journey", to: "timeline" },
+    { name: "Education", to: "education" },
+    { name: "Experience", to: "experience" },
     { name: "Contact", to: "contact" },
   ];
 
