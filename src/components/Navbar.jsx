@@ -61,7 +61,7 @@ const Navbar = ({ theme, toggleTheme }) => {
       <nav className={`navbar ${isScrolled ? "scrolled" : ""}`}>
         <div className="navbar-container">
           <a href="#home" className="nav-logo" onClick={closeMenu}>
-            My Portfolio
+            Prudhvi Charan
           </a>
           <div className="nav-menu-desktop">
             {navLinks.map((link) => (
