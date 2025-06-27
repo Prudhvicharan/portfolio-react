@@ -1,6 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { FaLinkedin, FaGithub } from "react-icons/fa";
+import logo from "../assets/logo.png";
 import "./Footer.css";
 
 const navLinks = [
@@ -44,8 +45,11 @@ const Footer = () => {
         >
           <div className="footer-brand">
             <a href="#home" className="footer-logo" aria-label="Go to home">
-              <span className="footer-logo-text">Prudhvi Charan</span>
-              <span className="footer-logo-dot" />
+              <img
+                src={logo}
+                alt="Prudhvi Charan"
+                className="footer-logo-img"
+              />
             </a>
           </div>
           <nav className="footer-nav" aria-label="Footer Navigation">

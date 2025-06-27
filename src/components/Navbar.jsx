@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-scroll";
 import { motion, useScroll } from "framer-motion";
 import { FaSun, FaMoon, FaBars, FaTimes } from "react-icons/fa";
+import logo from "../assets/logo.png";
 import "./Navbar.css";
 
 const Navbar = ({ theme, toggleTheme }) => {
@@ -61,7 +62,7 @@ const Navbar = ({ theme, toggleTheme }) => {
       <nav className={`navbar ${isScrolled ? "scrolled" : ""}`}>
         <div className="navbar-container">
           <a href="#home" className="nav-logo" onClick={closeMenu}>
-            Prudhvi Charan
+            <img src={logo} alt="Prudhvi Charan" className="nav-logo-img" />
           </a>
           <div className="nav-menu-desktop">
             {navLinks.map((link) => (
