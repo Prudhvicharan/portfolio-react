@@ -193,8 +193,8 @@
 
 .tech-orbit {
   position: relative;
-  width: 420px;
-  height: 420px;
+  width: 540px;
+  height: 540px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -202,20 +202,20 @@
 
 @media (max-width: 1200px) {
   .tech-orbit {
-    width: 340px;
-    height: 340px;
+    width: 420px;
+    height: 420px;
   }
 }
 @media (max-width: 900px) {
   .tech-orbit {
-    width: 260px;
-    height: 260px;
+    width: 320px;
+    height: 320px;
   }
 }
 @media (max-width: 600px) {
   .tech-orbit {
-    width: 180px;
-    height: 180px;
+    width: 220px;
+    height: 220px;
   }
 }
 
@@ -243,8 +243,8 @@
 }
 
 .profile-pic {
-  width: 120px;
-  height: 120px;
+  width: 160px;
+  height: 160px;
   border-radius: 50%;
   object-fit: cover;
   border: 5px solid var(--bg-card);
@@ -253,14 +253,14 @@
 }
 @media (min-width: 900px) {
   .profile-pic {
-    width: 160px;
-    height: 160px;
+    width: 220px;
+    height: 220px;
   }
 }
 @media (min-width: 1200px) {
   .profile-pic {
-    width: 200px;
-    height: 200px;
+    width: 260px;
+    height: 260px;
   }
 }
 

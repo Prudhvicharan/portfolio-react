@@ -28,10 +28,10 @@ const techStack = [
 ];
 
 const getOrbitRadius = () => {
-  if (window.innerWidth > 1200) return 180;
-  if (window.innerWidth > 900) return 130;
-  if (window.innerWidth > 600) return 90;
-  return 60;
+  if (window.innerWidth > 1200) return 240;
+  if (window.innerWidth > 900) return 180;
+  if (window.innerWidth > 600) return 120;
+  return 80;
 };
 
 const TechOrbit = ({ isOrbiting }) => {
