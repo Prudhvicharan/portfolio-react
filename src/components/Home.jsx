@@ -160,13 +160,13 @@ const Home = () => {
               <a href="#projects" className="btn btn-primary">
                 View My Work <FaArrowDown />
               </a>
-              <a
+              {/* <a
                 href={resumePdf}
                 download="Prudhvi_Charan_Resume.pdf"
                 className="btn btn-secondary"
               >
                 Download CV <FaDownload />
-              </a>
+              </a> */}
             </div>
           </motion.div>
 
