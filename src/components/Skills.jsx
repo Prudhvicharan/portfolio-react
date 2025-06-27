@@ -13,6 +13,15 @@ import {
   FaDocker,
   FaPython,
   FaJava,
+  FaTools,
+  FaAccessibleIcon,
+  FaKeyboard,
+  FaEye,
+  FaPalette,
+  FaChartLine,
+  FaRocket,
+  FaBug,
+  FaCode,
 } from "react-icons/fa";
 import {
   SiJavascript,
@@ -32,6 +41,10 @@ import {
   SiHeroku,
   SiTailwindcss,
   SiMui,
+  SiAngular,
+  SiTestinglibrary,
+  SiEslint,
+  SiPrettier,
 } from "react-icons/si";
 import "./Skills.css";
 import SectionTitle from "./common/SectionTitle";
@@ -39,15 +52,46 @@ import SectionTitle from "./common/SectionTitle";
 const skillsData = {
   frontend: [
     { name: "React", icon: <FaReact />, color: "#61DAFB" },
+    { name: "Angular 9+", icon: <SiAngular />, color: "#DD0031" },
     { name: "JavaScript (ES6+)", icon: <SiJavascript />, color: "#F7DF1E" },
     { name: "TypeScript", icon: <SiTypescript />, color: "#3178C6" },
     { name: "HTML5", icon: <FaHtml5 />, color: "#E34F26" },
     { name: "CSS3", icon: <FaCss3Alt />, color: "#1572B6" },
-    { name: "Sass", icon: <FaSass />, color: "#CC6699" },
+    { name: "Sass/SCSS", icon: <FaSass />, color: "#CC6699" },
     { name: "Tailwind CSS", icon: <SiTailwindcss />, color: "#06B6D4" },
     { name: "Material-UI", icon: <SiMui />, color: "#007FFF" },
     { name: "Bootstrap", icon: <FaBootstrap />, color: "#7952B3" },
     { name: "Redux", icon: <SiRedux />, color: "#764ABC" },
+  ],
+  testing: [
+    { name: "Jasmine", icon: <FaCode />, color: "#8A4182" },
+    { name: "Karma", icon: <FaBug />, color: "#56C5A8" },
+    { name: "Jest", icon: <SiJest />, color: "#C21325" },
+    {
+      name: "React Testing Library",
+      icon: <SiTestinglibrary />,
+      color: "#E33332",
+    },
+    { name: "Cypress", icon: <SiCypress />, color: "#17202C" },
+    { name: "Unit Testing", icon: <FaTools />, color: "#4CAF50" },
+    { name: "E2E Testing", icon: <FaRocket />, color: "#FF6B35" },
+  ],
+  performance: [
+    { name: "Webpack", icon: <SiWebpack />, color: "#8DD6F9" },
+    { name: "Vite", icon: <SiVite />, color: "#646CFF" },
+    { name: "Lighthouse Audits", icon: <FaRocket />, color: "#F44B21" },
+    { name: "Bundle Analysis", icon: <FaChartLine />, color: "#8B5CF6" },
+    { name: "Code Splitting", icon: <FaCode />, color: "#61DAFB" },
+    { name: "Performance Monitoring", icon: <FaEye />, color: "#FF6B35" },
+    { name: "CAST Tools", icon: <FaTools />, color: "#4CAF50" },
+  ],
+  accessibility: [
+    { name: "WCAG 2.1 AA", icon: <FaAccessibleIcon />, color: "#0066CC" },
+    { name: "ARIA Labels", icon: <FaCode />, color: "#E34F26" },
+    { name: "Screen Reader Testing", icon: <FaEye />, color: "#8B5CF6" },
+    { name: "Keyboard Navigation", icon: <FaKeyboard />, color: "#4B5563" },
+    { name: "Color Contrast", icon: <FaPalette />, color: "#F59E0B" },
+    { name: "Semantic HTML", icon: <FaHtml5 />, color: "#E34F26" },
   ],
   backend: [
     { name: "Node.js", icon: <FaNodeJs />, color: "#339933" },
@@ -61,11 +105,9 @@ const skillsData = {
   tools: [
     { name: "Git & GitHub", icon: <FaGitAlt />, color: "#F05032" },
     { name: "Docker", icon: <FaDocker />, color: "#2496ED" },
-    { name: "Webpack", icon: <SiWebpack />, color: "#8DD6F9" },
-    { name: "Vite", icon: <SiVite />, color: "#646CFF" },
-    { name: "Jest", icon: <SiJest />, color: "#C21325" },
-    { name: "Cypress", icon: <SiCypress />, color: "#17202C" },
     { name: "Storybook", icon: <SiStorybook />, color: "#FF4785" },
+    { name: "ESLint", icon: <SiEslint />, color: "#4B32C3" },
+    { name: "Prettier", icon: <SiPrettier />, color: "#F7B93E" },
     { name: "Netlify", icon: <SiNetlify />, color: "#00C7B7" },
     { name: "Vercel", icon: <SiVercel />, color: "#000000" },
     { name: "Heroku", icon: <SiHeroku />, color: "#430098" },
@@ -132,18 +174,34 @@ const Skills = () => {
   return (
     <div className={`skills-container ${darkTheme ? "dark" : ""}`} id="skills">
       <div className="container">
-        <SectionTitle>My Technical Skills</SectionTitle>
+        <SectionTitle>Technical Expertise</SectionTitle>
         <p className="skills-intro">
-          I have experience with a wide range of technologies in the web
-          development ecosystem. Here are some of my key skills.
+          Comprehensive skill set aligned with modern web development practices,
+          emphasizing performance optimization, accessibility standards, and
+          robust testing methodologies.
         </p>
         <div className="skills-layout">
-          <SkillCategory title="Frontend" skills={skillsData.frontend} />
-          <SkillCategory title="Backend" skills={skillsData.backend} />
           <SkillCategory
-            title="Tools & Technologies"
-            skills={skillsData.tools}
+            title="Frontend Development"
+            skills={skillsData.frontend}
           />
+          <SkillCategory
+            title="Testing & Quality Assurance"
+            skills={skillsData.testing}
+          />
+          <SkillCategory
+            title="Performance & Optimization"
+            skills={skillsData.performance}
+          />
+          <SkillCategory
+            title="Web Accessibility (WCAG)"
+            skills={skillsData.accessibility}
+          />
+          <SkillCategory
+            title="Backend & Database"
+            skills={skillsData.backend}
+          />
+          <SkillCategory title="Development Tools" skills={skillsData.tools} />
         </div>
       </div>
     </div>

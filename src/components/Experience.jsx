@@ -23,11 +23,12 @@ const workExperiences = [
     duration: "1.5 years",
     technologies: ["Angular 9", "TypeScript", "Jasmine", "Karma", "CAST Tools"],
     responsibilities: [
-      "Developed and maintained engaging user interfaces for multiple company projects using Angular 9 and TypeScript.",
-      "Leveraged Angular to create interactive web applications, delivering exceptional user experiences.",
-      "Drove seamless API integrations, fostering robust interactions within the microfrontend architecture.",
-      "Contributed to development through rigorous unit testing using Jasmine and Karma.",
-      "Implemented performance optimization strategies using CAST tools, enhancing speed and efficiency.",
+      "Developed and maintained responsive, cross-browser compatible user interfaces using Angular 9 and TypeScript for enterprise-scale applications.",
+      "Implemented comprehensive unit testing strategy using Jasmine and Karma, achieving 85%+ code coverage across all modules.",
+      "Optimized application performance using CAST tools, resulting in 40% improvement in load times and enhanced user experience.",
+      "Built microfrontend architecture components with seamless API integrations, ensuring scalability and maintainability.",
+      "Collaborated with UI/UX designers to translate wireframes and mockups into pixel-perfect, responsive interfaces.",
+      "Conducted code reviews and mentored junior developers on Angular best practices and testing methodologies.",
     ],
     achievements: [
       { text: "40% Performance Improvement", icon: "📈" },

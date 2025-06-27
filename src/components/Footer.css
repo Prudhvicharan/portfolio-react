@@ -195,6 +195,7 @@
 .card, .project-card, .skill-category, .experience-card, .education-details, .info-card, .contact-form-wrapper, .footer, .primary-button, .secondary-button, .send-button, .social-button, .scroll-to-top {
   border-radius: var(--border-radius);
   box-shadow: var(--card-shadow-light);
+  border-radius: var(--radius-2xl);
 }
 
 body.dark-theme .card,
