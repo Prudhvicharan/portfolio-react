@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
-import { FaPlay, FaPause, FaArrowDown, FaDownload } from "react-icons/fa";
+import { FaPlay, FaPause, FaArrowDown } from "react-icons/fa";
 import {
   SiJavascript,
   SiReact,
@@ -13,7 +13,6 @@ import {
   SiTypescript,
 } from "react-icons/si";
 import profilePic from "../assets/profile-pic.png";
-import resumePdf from "../assets/prudhvi_charan_resume.pdf";
 import "./Home.css";
 
 const techStack = [
@@ -112,6 +111,98 @@ const TechOrbit = ({ isOrbiting }) => {
   );
 };
 
+// Background Graphics Component
+const BackgroundGraphics = () => {
+  return (
+    <div className="background-graphics">
+      {/* Enhanced Floating Particles */}
+      <div className="particles-container">
+        {[...Array(18)].map((_, i) => (
+          <motion.div
+            key={i}
+            className="particle"
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+            }}
+            animate={{
+              y: [0, -30, 0],
+              opacity: [0.1, 0.9, 0.1],
+              scale: [0.6, 1.4, 0.6],
+            }}
+            transition={{
+              duration: 6 + Math.random() * 4,
+              repeat: Infinity,
+              delay: Math.random() * 4,
+              ease: "easeInOut",
+            }}
+          />
+        ))}
+      </div>
+
+      {/* Subtle Grid Pattern */}
+      <div className="grid-pattern">
+        <svg
+          width="100%"
+          height="100%"
+          viewBox="0 0 100 100"
+          preserveAspectRatio="none"
+        >
+          <defs>
+            <pattern
+              id="grid"
+              width="8"
+              height="8"
+              patternUnits="userSpaceOnUse"
+            >
+              <path
+                d="M 8 0 L 0 0 0 8"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="0.3"
+                opacity="0.1"
+              />
+            </pattern>
+          </defs>
+          <rect width="100%" height="100%" fill="url(#grid)" />
+        </svg>
+      </div>
+
+      {/* Enhanced Sparkling Stars */}
+      <div className="stars-container">
+        {[...Array(30)].map((_, i) => (
+          <motion.div
+            key={`star-${i}`}
+            className={`star star-${(i % 5) + 1}`}
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+            }}
+            animate={{
+              opacity: [0.1, 1, 0.1],
+              scale: [0.4, 1.2, 0.4],
+              rotate: [0, 180, 360],
+            }}
+            transition={{
+              duration: 4 + Math.random() * 6,
+              repeat: Infinity,
+              delay: Math.random() * 8,
+              ease: "easeInOut",
+            }}
+          >
+            <svg width="100%" height="100%" viewBox="0 0 20 20">
+              <path
+                d="M10 0L12.245 7.755L20 10L12.245 12.245L10 20L7.755 12.245L0 10L7.755 7.755L10 0Z"
+                fill="currentColor"
+              />
+            </svg>
+          </motion.div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
 const Home = () => {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, threshold: 0.1 });
@@ -134,6 +225,7 @@ const Home = () => {
 
   return (
     <div className="home-section" id="home">
+      <BackgroundGraphics />
       <div className="container">
         <motion.div
           className="home-container"
@@ -160,13 +252,6 @@ const Home = () => {
               <a href="#projects" className="btn btn-primary">
                 View My Work <FaArrowDown />
               </a>
-              {/* <a
-                href={resumePdf}
-                download="Prudhvi_Charan_Resume.pdf"
-                className="btn btn-secondary"
-              >
-                Download CV <FaDownload />
-              </a> */}
             </div>
           </motion.div>
 
