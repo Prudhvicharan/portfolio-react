@@ -43,15 +43,22 @@ const projectsData = [
   {
     image: placeholder3,
     title: "Career-Axis",
-    subtitle: "Career guidance and counseling platform.",
+    subtitle:
+      "AI-powered job application tracking and Gmail integration platform.",
     description:
-      "Interactive career guidance system built with React, providing personalized career recommendations, skills assessment, and educational pathway suggestions to help users make informed professional decisions.",
+      "AI-powered Gmail integration that automatically classifies job application emails with 90%+ accuracy, transforming chaotic job searches into organized, trackable workflows.",
     stats: [
-      { value: "Interactive", label: "Assessments" },
-      { value: "Personalized", label: "Recommendations" },
-      { value: "React", label: "Framework" },
+      { value: "90%+", label: "Accuracy" },
+      { value: "Gmail", label: "Integration" },
+      { value: "Multi-Algorithm", label: "AI Classification" },
     ],
-    technologies: ["React", "JavaScript", "Career Analytics", "UI/UX"],
+    technologies: [
+      "React",
+      "Gmail API",
+      "Email Classification",
+      "Analytics Dashboard",
+      "OAuth 2.0",
+    ],
     githubLink: "https://github.com/Prudhvicharan/career-axis",
     liveLink: "https://prudhvicharan.github.io/Career-Axis/",
   },

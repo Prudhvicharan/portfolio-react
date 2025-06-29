@@ -10,6 +10,7 @@
   max-width: 650px;
   font-size: var(--text-lg);
   color: var(--text-secondary);
+  margin: 0 auto var(--space-16) auto;
 }
 
 .skills-layout {
